@@ -1,6 +1,6 @@
 # README - cloudPWN v0.1 (development)
 
-Author: J. David Bressler (@bostonlink), GuidePoint Security LLC. </br>
+Author: J. David Bressler (@bostonlink), GuidePoint Security LLC.<br/>
 cloudPWN - Automating Attacks within the cloud
 
 ## 2.0 - Installation
