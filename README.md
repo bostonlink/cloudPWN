@@ -61,6 +61,7 @@ You need to configure a EC2 AMI image with metasploit, SET, apache2, and nmap an
  * Now that the instance is configured review and launch the instance. Once the instance is launched and running ssh into the instance and follow the rest of this guide.
 
  * 
+ 
 
  ## 3.0 - The Future
 
