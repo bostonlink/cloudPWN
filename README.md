@@ -91,32 +91,32 @@ You need to configure a EC2 AMI image with metasploit, SET, apache2, and nmap an
 
 * Install Metasploit and dependencies 
 	
-Note: Big Thanks to Carlos Perez for this tutorial source: http://www.darkoperator.com/installing-metasploit-in-ubunt/
+Note: Big Thanks to Carlos Perez for this tutorial http://www.darkoperator.com/installing-metasploit-in-ubunt/
 
-	* Install Metasploit Dependencies
+ * Install Metasploit Dependencies
 
-		```bash
-		$ sudo apt-get install build-essential libreadline-dev  libssl-dev libpq5 libpq-dev libreadline5 libsqlite3-dev libpcap-dev openjdk-7-jre subversion git-core autoconf postgresql pgadmin3 curl zlib1g-dev libxml2-dev libxslt1-dev vncviewer libyaml-dev ruby1.9.3
-		```
-	* Install the requires gems for Metasploit
+	```bash
+	$ sudo apt-get install build-essential libreadline-dev  libssl-dev libpq5 libpq-dev libreadline5 libsqlite3-dev libpcap-dev openjdk-7-jre subversion git-core autoconf postgresql pgadmin3 curl zlib1g-dev libxml2-dev libxslt1-dev vncviewer libyaml-dev ruby1.9.3
+	```
+ * Install the requires gems for Metasploit
 
-		```bash
+	```bash
 		$ sudo gem install wirble sqlite3 bundler
-		```
-	* Install Nmap 
+	```
+ * Install Nmap 
 
-		```bash
-		$ mkdir ~/tools
-		$ cd ~/tools
-		$ wget http://nmap.org/dist/nmap-6.25.tar.bz2
-		$ tar jxf nmap-6.25.tar.bz2
-		$ cd nmap-6.25/
-		$ ./configure
-		$ make
-		$ sudo make install
-		$ sudo make clean
-		$ cd 
-		```
+	```bash
+	$ mkdir ~/tools
+	$ cd ~/tools
+	$ wget http://nmap.org/dist/nmap-6.25.tar.bz2
+	$ tar jxf nmap-6.25.tar.bz2
+	$ cd nmap-6.25/
+	$ ./configure
+	$ make
+	$ sudo make install
+	$ sudo make clean
+	$ cd 
+	```
 	* Configure Postgresql
 
 		Note: Make note of the password set for the msf user
