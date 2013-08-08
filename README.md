@@ -194,9 +194,8 @@ Note: Big Thanks to Carlos Perez for this tutorial http://www.darkoperator.com/i
 
  * Now your custom SET and Metasploit AMI image is setup and ready to rock and roll ;) 
 
- ## 3.0 - The Future
-
- ### 3.1 - Future Development List
+## 3.0 - The Future
+### 3.1 - Future Development List
 
  	* Add support for additional cloud/vps providers
  	* Add self hosted support
