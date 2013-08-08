@@ -38,15 +38,15 @@ Note: If you select to use Java self signed certs within the attack the attack w
 ### 2.6 - EC2 AMI Image configuration
 You need to configure a EC2 AMI image with metasploit, SET, apache2, and nmap and save it as an AMI image.  This is the base image that will be launched and terminated at the start and end of each attack.  The following outlines the steps I took to setup my own EC2 AMI image with Metasploit, SET, Nmap, and Apache2 installed and ready to go.
 
- * Launch a new Ubuntu Server 12.04.2 LTS 32-bit instance within AWS EC2
+* Launch a new Ubuntu Server 12.04.2 LTS 32-bit instance within AWS EC2
 
  Note: This will be our base image we work off of, you can leave all the instance details and sizeing defaults for now and we can resize if need be within our config file and launch larger instances of our AMI image.  The only exception is to add a name for the instance in the tagging section.
 
- * Next either create a new key pair or choose an existing keypair you already have.  
+* Next either create a new key pair or choose an existing keypair you already have.  
 
  Note: This will have to be local on your client system to be able to SSH into the system and allow cloudPWN to automatically setup the attacks.
 
- * Next create a new Security Group and add at least the following ports, you can customize this to your liking this is my default SET security group within EC2:
+* Next create a new Security Group and add at least the following ports, you can customize this to your liking this is my default SET security group within EC2:
 
  	* 21/tcp   0.0.0.0/0
  	* 22/tcp   0.0.0.0/0
@@ -58,9 +58,9 @@ You need to configure a EC2 AMI image with metasploit, SET, apache2, and nmap an
 
  Note: These firewall rules will allow inbound traffic on all of the above ports from anywhere.
 
- * Now that the instance is configured review and launch the instance. Once the instance is launched and running, ssh into the instance and follow the rest of this guide to install SET, Metasploit, Apache, and Nmap.
+* Now that the instance is configured review and launch the instance. Once the instance is launched and running, ssh into the instance and follow the rest of this guide to install SET, Metasploit, Apache, and Nmap.
 
- * git clone SET and install 
+* git clone SET and install 
 
  	```bash
  	$ sudo apt-get update
