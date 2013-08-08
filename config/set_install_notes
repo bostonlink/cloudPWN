@@ -20,7 +20,7 @@ cd
 # Now we must install Core Security 'Impacket' python module 
 #from http://corelabs.coresecurity.com/index.php?module=Wiki&action=view&type=tool&name=Impacket
 
-wget 'http://corelabs.coresecurity.com/index.php?module=Wiki&action=attachment&type=tool&page=Impacket&file=impacket-0.9.9.9.tar.gz'
+wget 'http://corelabs.coresecurity.com/index.php?module=Wiki&action=attachment&type=tool&page=Impacket&file=impacket-0.9.9.9.tar.gz' -O impacket-0.9.9.9.tar.gz
 
 mv index.php\?module\=Wiki\&action\=attachment\&type\=tool\&page\=Impacket\&file\=impacket-0.9.9.9.tar.gz impacket-0.9.9.9.tar.gz
 

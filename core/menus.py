@@ -23,17 +23,23 @@ def main_menu():
 	print "3. Self Hosted External box (TODO)\n"
 	print "Please select a cloud service to launch an attack from."
 	userin = raw_input("Select a service (1/2/3): ")
-	if int(userin.strip()) > 2:
+	if int(userin.strip()) > 3:
 		print red("Your selection is wrong, try again.")
 		sys.exit(0)
 	elif int(userin.strip()) == 1:
 		aws = True
 		linode = False
+		self_hosted = False
 	elif int(userin.strip()) == 2:
 		aws = False
 		linode = True
+		self_hosted = False
+	elif int(userin.strip()) == 3:
+		aws = False
+		linode = False
+		self_hosted = True
 
-	return aws, linode
+	return aws, linode, self_hosted
 
 # Instance Menu
 def image_menu():
