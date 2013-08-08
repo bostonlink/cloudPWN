@@ -47,7 +47,7 @@ You need to configure a EC2 AMI image with metasploit, SET, apache2, and nmap an
  Note: This will have to be local on your client system to be able to SSH into the system and allow cloudPWN to automatically setup the attacks.
 
  * Next create a new Security Group and add at least the following ports, you can customize this to your liking this is my default SET security group within EC2:
- 
+
  	* 21/tcp   0.0.0.0/0
  	* 22/tcp   0.0.0.0/0
  	* 53/tcp   0.0.0.0/0
@@ -58,8 +58,7 @@ You need to configure a EC2 AMI image with metasploit, SET, apache2, and nmap an
 
  Note: These firewall rules will allow inbound traffic on all of the above ports from anywhere.
 
+ * Now that the instance is configured review and launch the instance. Once the instance is launched and running ssh into the instance and follow the rest of this guide.
+
  * 
 
-
-
-All Done!!  Happy Hunting!
