@@ -58,7 +58,143 @@ You need to configure a EC2 AMI image with metasploit, SET, apache2, and nmap an
 
  Note: These firewall rules will allow inbound traffic on all of the above ports from anywhere.
 
- * Now that the instance is configured review and launch the instance. Once the instance is launched and running ssh into the instance and follow the rest of this guide.
+ * Now that the instance is configured review and launch the instance. Once the instance is launched and running, ssh into the instance and follow the rest of this guide to install SET, Metasploit, Apache, and Nmap.
+
+ * git clone SET and install 
+
+ 	```bash
+ 	$ sudo apt-get update
+	$ sudo apt-get upgrade
+	$ sudo apt-get install git
+	$ cd
+	$ git clone https://github.com/trustedsec/social-engineer-toolkit.git
+	$ cd social-engineer-toolkit/
+	$ sudo python setup.py install
+	$ cd
+	```
+* Install SET dependencies
+
+	```bash
+	$ wget 'http://corelabs.coresecurity.com/index.php?module=Wiki&action=attachment&type=tool&page=Impacket&file=impacket-0.9.9.9.tar.gz' -O impacket-0.9.9.9.tar.gz
+
+	$ tar xzf impacket-0.9.9.9.tar.gz
+	$ cd impacket
+	$ sudo python setup.py install
+	$ cd
+	```
+
+* Rename the set directory
+
+	```bash
+	$ sudo mv /usr/share/setoolkit/ /usr/share/set/
+	```
+
+* Install Metasploit and dependencies 
+	
+Note: Big Thanks to Carlos Perez for this tutorial source: http://www.darkoperator.com/installing-metasploit-in-ubunt/
+
+	* Install Metasploit Dependencies
+
+		```bash
+		$ sudo apt-get install build-essential libreadline-dev  libssl-dev libpq5 libpq-dev libreadline5 libsqlite3-dev libpcap-dev openjdk-7-jre subversion git-core autoconf postgresql pgadmin3 curl zlib1g-dev libxml2-dev libxslt1-dev vncviewer libyaml-dev ruby1.9.3
+		```
+	* Install the requires gems for Metasploit
+
+		```bash
+		$ sudo gem install wirble sqlite3 bundler
+		```
+	* Install Nmap 
+
+		```bash
+		$ mkdir ~/tools
+		$ cd ~/tools
+		$ wget http://nmap.org/dist/nmap-6.25.tar.bz2
+		$ tar jxf nmap-6.25.tar.bz2
+		$ cd nmap-6.25/
+		$ ./configure
+		$ make
+		$ sudo make install
+		$ sudo make clean
+		$ cd 
+		```
+	* Configure Postgresql
+
+		Note: Make note of the password set for the msf user
+
+		```bash
+		$ sudo -s
+		$ su postgres
+		$ createuser msf -P -S -R -D
+		$ createdb -O msf msf
+		$ exit
+		$ exit
+		```
+	* Install Metasploit
+
+		```bash
+		$ cd /opt
+		$ sudo git clone https://github.com/rapid7/metasploit-framework.git
+		$ cd metasploit-framework
+		$ sudo bash -c 'for MSF in $(ls msf*); do ln -s /opt/metasploit-framework/$MSF /usr/local/bin/$MSF;done'
+		
+		$ bundle install
+		```
+	* Create the database.yml file
+
+		```bash
+		$ sudo vim /opt/metasploit-framework/database.yml
+		```
+		* Contents of the database.yml file
+
+		```bash
+		production:
+   			adapter: postgresql
+   			database: msf
+   			username: msf
+   			password: [enter msf db password here]
+   			host: 127.0.0.1
+   			port: 5432
+   			pool: 75
+   			timeout: 5
+   		```
+   		```bash
+   		$ sudo sh -c "echo export MSF_DATABASE_CONFIG=/opt/metasploit-framework/database.yml >> /etc/profile"
+		
+		$ source /etc/profile
+		```
+	* Metasploit is installed and now launch msfconsole to make sure it is up and running
+
+		```bash
+		$ sudo msfconsole
+		```
+	* Edit the SET config file and tell it where Metasploit is installed
+
+		```bash
+		$ cd /usr/share/set
+		$ sudo vim config/set_config
+		```
+		Note: change the metasploit directory to /opt/metasploit-framework/ within the SET config file.
+
+	* Install Apache2 for SET Apache support
+
+		```bash
+		$ sudo apt-get install -f apache2 libapache2-mod-php5
+		$ sudo update-rc.d apache2 disable
+		$ sudo service apache2 stop
+		```
+	* Launch setoolkit and accept the agreement
+
+		```bash
+		$ sudo setoolkit
+		```
+
+* Next in the EC2 dashboard under instances right click the configured instance and select Create Image (EBS image) and enter a unique name and description.
+
+* Once the Image is created and saved under AMIs expand the AMI image and copy the AMI ID
+
+* Next edit the cloudPWN configuration file and add the AMI ID to the image_list list
+
+* Now your custom SET and Metasploit AMI image is setup and ready to rock and roll ;) 
 
  ## 3.0 - The Future
 
