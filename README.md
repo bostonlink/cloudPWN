@@ -197,9 +197,9 @@ Note: Big Thanks to Carlos Perez for this tutorial http://www.darkoperator.com/i
 ## 3.0 - The Future
 ### 3.1 - Future Development List
 
- 	* Add support for additional cloud/vps providers
- 	* Add self hosted support
- 	* Add Nmap module to launch multiple Nmap scans in multiple instances
- 	* Add Phishing email support and email lists for phishing and web attacks
- 	* Add Recon-ng support and automation
- 	* Add Recon-ng import to import and create email lists
+ * Add support for additional cloud/vps providers
+ * Add self hosted support
+ * Add Nmap module to launch multiple Nmap scans in multiple instances
+ * Add Phishing email support and email lists for phishing and web attacks
+ * Add Recon-ng support and automation
+ * Add Recon-ng import to import and create email lists
