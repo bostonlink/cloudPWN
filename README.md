@@ -76,7 +76,6 @@ You need to configure a EC2 AMI image with metasploit, SET, apache2, and nmap an
 
 	```bash
 	$ wget 'http://corelabs.coresecurity.com/index.php?module=Wiki&action=attachment&type=tool&page=Impacket&file=impacket-0.9.9.9.tar.gz' -O impacket-0.9.9.9.tar.gz
-
 	$ tar xzf impacket-0.9.9.9.tar.gz
 	$ cd impacket
 	$ sudo python setup.py install
@@ -117,34 +116,33 @@ Note: Big Thanks to Carlos Perez for this tutorial http://www.darkoperator.com/i
 	$ sudo make clean
 	$ cd 
 	```
-	* Configure Postgresql
+ * Configure Postgresql
 
-		Note: Make note of the password set for the msf user
+	Note: Make note of the password set for the msf user
 
-		```bash
-		$ sudo -s
-		$ su postgres
-		$ createuser msf -P -S -R -D
-		$ createdb -O msf msf
-		$ exit
-		$ exit
-		```
-	* Install Metasploit
+	```bash
+	$ sudo -s
+	$ su postgres
+	$ createuser msf -P -S -R -D
+	$ createdb -O msf msf
+	$ exit
+	$ exit
+	```
+ * Install Metasploit
 
-		```bash
-		$ cd /opt
-		$ sudo git clone https://github.com/rapid7/metasploit-framework.git
-		$ cd metasploit-framework
-		$ sudo bash -c 'for MSF in $(ls msf*); do ln -s /opt/metasploit-framework/$MSF /usr/local/bin/$MSF;done'
-		
-		$ bundle install
-		```
-	* Create the database.yml file
+	```bash
+	$ cd /opt
+	$ sudo git clone https://github.com/rapid7/metasploit-framework.git
+	$ cd metasploit-framework
+	$ sudo bash -c 'for MSF in $(ls msf*); do ln -s /opt/metasploit-framework/$MSF /usr/local/bin/$MSF;done'
+	$ bundle install
+	```
+ * Create the database.yml file
 
-		```bash
-		$ sudo vim /opt/metasploit-framework/database.yml
-		```
-		* Contents of the database.yml file
+	```bash
+	$ sudo vim /opt/metasploit-framework/database.yml
+	```
+	* Contents of the database.yml file
 
 		```bash
 		production:
@@ -162,39 +160,39 @@ Note: Big Thanks to Carlos Perez for this tutorial http://www.darkoperator.com/i
 		
 		$ source /etc/profile
 		```
-	* Metasploit is installed and now launch msfconsole to make sure it is up and running
+ * Metasploit is installed and now launch msfconsole to make sure it is up and running
 
-		```bash
-		$ sudo msfconsole
-		```
-	* Edit the SET config file and tell it where Metasploit is installed
+	```bash
+	$ sudo msfconsole
+	```
+ * Edit the SET config file and tell it where Metasploit is installed
 
-		```bash
-		$ cd /usr/share/set
-		$ sudo vim config/set_config
-		```
-		Note: change the metasploit directory to /opt/metasploit-framework/ within the SET config file.
+	```bash
+	$ cd /usr/share/set
+	$ sudo vim config/set_config
+	```
+	Note: change the metasploit directory to /opt/metasploit-framework/ within the SET config file.
 
-	* Install Apache2 for SET Apache support
+ * Install Apache2 for SET Apache support
 
-		```bash
-		$ sudo apt-get install -f apache2 libapache2-mod-php5
-		$ sudo update-rc.d apache2 disable
-		$ sudo service apache2 stop
-		```
-	* Launch setoolkit and accept the agreement
+	```bash
+	$ sudo apt-get install -f apache2 libapache2-mod-php5
+	$ sudo update-rc.d apache2 disable
+	$ sudo service apache2 stop
+	```
+ * Launch setoolkit and accept the agreement
 
-		```bash
-		$ sudo setoolkit
-		```
+	```bash
+	$ sudo setoolkit
+	```
 
-* Next in the EC2 dashboard under instances right click the configured instance and select Create Image (EBS image) and enter a unique name and description.
+ * Next in the EC2 dashboard under instances right click the configured instance and select Create Image (EBS image) and enter a unique name and description.
 
-* Once the Image is created and saved under AMIs expand the AMI image and copy the AMI ID
+ * Once the Image is created and saved under AMIs expand the AMI image and copy the AMI ID
 
-* Next edit the cloudPWN configuration file and add the AMI ID to the image_list list
+ * Next edit the cloudPWN configuration file and add the AMI ID to the image_list list
 
-* Now your custom SET and Metasploit AMI image is setup and ready to rock and roll ;) 
+ * Now your custom SET and Metasploit AMI image is setup and ready to rock and roll ;) 
 
  ## 3.0 - The Future
 
