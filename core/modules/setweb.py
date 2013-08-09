@@ -93,21 +93,31 @@ def set_web_attacks(idic):
 				fabfunky.interactive_shell(idic["ip"], config["instance_user"], cmd)
 
 			# clean and terminate if attack is done
-			cleanup = menus.cleanup_menu()
-
-			if cleanup == True:
-
-				conn = ec2funky.ec2connx(config["accesskey"], config["secretkey"])
-				print red("Cleaning up %s - %s instance" % (idic["tags"], idic["iid"]))
+			if idic["ip"] == idic["iid"]:
+				
+				print "Self Hosted Attack box detected... Pulling logs"
+				print "Please clean system independently..."
 				fabfunky.get_logz(idic["ip"], config["instance_user"])
 				fabfunky.disconnect_all()
-				ec2funky.terminate_instance(idic["iid"], conn)
-
+				pass
+			
 			else:
+				
+				cleanup = menus.cleanup_menu()
 
-				fabfunky.disconnect_all()
-				print red("SSH: ssh -i %s.pem %s@%s") % (idic["key"], config["instance_user"],idic["ip"])
-				print "Be sure to run 'python cloudPWNclean.py' after the attack to pull logs and terminate the instance."
+				if cleanup == True:
+
+					conn = ec2funky.ec2connx(config["accesskey"], config["secretkey"])
+					print red("Cleaning up %s - %s instance" % (idic["tags"], idic["iid"]))
+					fabfunky.get_logz(idic["ip"], config["instance_user"])
+					fabfunky.disconnect_all()
+					ec2funky.terminate_instance(idic["iid"], conn)
+
+				else:
+
+					fabfunky.disconnect_all()
+					print red("SSH: ssh -i %s.pem %s@%s") % (idic["key"], config["instance_user"],idic["ip"])
+					print "Be sure to run 'python cloudPWNclean.py' after the attack to pull logs and terminate the instance."
 
 	elif java_app == True:
 
@@ -174,21 +184,31 @@ def set_web_attacks(idic):
 				fabfunky.interactive_shell(idic["ip"], config["instance_user"], cmd)
 
 			# clean and terminate if attack is done
-			cleanup = menus.cleanup_menu()
-
-			if cleanup == True:
-
-				conn = ec2funky.ec2connx(config["accesskey"], config["secretkey"])
-				print red("Cleaning up %s - %s instance" % (idic["tags"], idic["iid"]))
+			if idic["ip"] == idic["iid"]:
+				
+				print "Self Hosted Attack box detected... Pulling logs"
+				print "Please clean system independently..."
 				fabfunky.get_logz(idic["ip"], config["instance_user"])
 				fabfunky.disconnect_all()
-				ec2funky.terminate_instance(idic["iid"], conn)
-
+				pass
+			
 			else:
+				
+				cleanup = menus.cleanup_menu()
 
-				fabfunky.disconnect_all()
-				print red("SSH: ssh -i %s.pem %s@%s") % (idic["key"], config["instance_user"],idic["ip"])
-				print "Be sure to run 'python cloudPWNclean.py' after the attack to pull logs and terminate the instance."
+				if cleanup == True:
+
+					conn = ec2funky.ec2connx(config["accesskey"], config["secretkey"])
+					print red("Cleaning up %s - %s instance" % (idic["tags"], idic["iid"]))
+					fabfunky.get_logz(idic["ip"], config["instance_user"])
+					fabfunky.disconnect_all()
+					ec2funky.terminate_instance(idic["iid"], conn)
+
+				else:
+
+					fabfunky.disconnect_all()
+					print red("SSH: ssh -i %s.pem %s@%s") % (idic["key"], config["instance_user"],idic["ip"])
+					print "Be sure to run 'python cloudPWNclean.py' after the attack to pull logs and terminate the instance."
 
 	elif charvest == True:
 
@@ -254,18 +274,28 @@ def set_web_attacks(idic):
 				fabfunky.interactive_shell(idic["ip"], config["instance_user"], cmd)
 
 			# clean and terminate if attack is done
-			cleanup = menus.cleanup_menu()
-
-			if cleanup == True:
-
-				conn = ec2funky.ec2connx(config["accesskey"], config["secretkey"])
-				print red("Cleaning up %s - %s instance" % (idic["tags"], idic["iid"]))
+			if idic["ip"] == idic["iid"]:
+				
+				print "Self Hosted Attack box detected... Pulling logs"
+				print "Please clean system independently..."
 				fabfunky.get_logz(idic["ip"], config["instance_user"])
 				fabfunky.disconnect_all()
-				ec2funky.terminate_instance(idic["iid"], conn)
-
+				pass
+			
 			else:
 
-				fabfunky.disconnect_all()
-				print red("SSH: ssh -i %s.pem %s@%s") % (idic["key"], config["instance_user"],idic["ip"])
-				print "Be sure to run 'python cloudPWNclean.py' after the attack to pull logs and terminate the instance."	
+				cleanup = menus.cleanup_menu()
+
+				if cleanup == True:
+
+					conn = ec2funky.ec2connx(config["accesskey"], config["secretkey"])
+					print red("Cleaning up %s - %s instance" % (idic["tags"], idic["iid"]))
+					fabfunky.get_logz(idic["ip"], config["instance_user"])
+					fabfunky.disconnect_all()
+					ec2funky.terminate_instance(idic["iid"], conn)
+
+				else:
+
+					fabfunky.disconnect_all()
+					print red("SSH: ssh -i %s.pem %s@%s") % (idic["key"], config["instance_user"],idic["ip"])
+					print "Be sure to run 'python cloudPWNclean.py' after the attack to pull logs and terminate the instance."	
