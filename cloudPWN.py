@@ -55,7 +55,8 @@ try:
 	elif self_hosted == True:
 		ip = raw_input("Please enter the IP address of the Self hosted attack box: ")
 		self_dic = core.lib.selfy.self_info(ip)
-		print self_dic
+		setweb.set_web_attacks(self_dic)
+		fabfunky.clean_local()
 
 # Keyboard inturrupt exception
 except KeyboardInterrupt:
