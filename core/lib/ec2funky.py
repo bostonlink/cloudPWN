@@ -23,14 +23,10 @@ def get_images(conn, imagelst):
 
 def new_instance_launch(selection_id, connection, key_name, instance_type, sec_group):
 	print green("creating instance from...... " + selection_id)
-	connection.run_instances(selection_id,
+	new_id = connection.run_instances(selection_id,
 		key_name = key_name,
 		instance_type = instance_type,
 		security_groups=[sec_group])
-	res = connection.get_all_instances()
-	for r in res:
-		if r.instances[0].state == 'pending':
-			new_id = r.instances[0].id
 	
 	while True:
 		res = connection.get_all_instances(instance_ids=[new_id])
@@ -43,27 +39,6 @@ def new_instance_launch(selection_id, connection, key_name, instance_type, sec_g
 			break
 
 	return new_id
-
-def start_instance(instance_id, connection):
-	res = connection.get_all_instances(instance_ids=[instance_id])
-	print green("\nStarting %s instance" % res[0].instances[0].id)
-	res[0].instances[0].start()
-	while True:
-		res = connection.get_all_instances(instance_ids=[instance_id])
-		if res[0].instances[0].state == 'pending':
-			print yellow("%s's status is still %s. wait for the it!" % (res[0].instances[0].id, res[0].instances[0].state))
-			sleep(2)
-		elif res[0].instances[0].state == 'running':
-			print green("Instance started....")
-			print "ssh into the instance using %s key" % res[0].instances[0].key_name
-			print "cmd: ssh -i %s.pem ubuntu@%s" % (res[0].instances[0].key_name, res[0].instances[0].ip_address)
-			print red("Ready to rock and roll, pwn them all!")
-			break
-
-def stop_instance(instance_id, connection):
-	print "Stopping %s instance......" % instance_id
-	connection.stop_instances(instance_ids=[instance_id])
-	print "Instance %s stopped...." % instance_id
 
 def terminate_instance(instance_id, connection):
 	print "Terminating %s instance....." % instance_id

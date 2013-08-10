@@ -31,7 +31,7 @@ $ git clone https://github.com/bostonlink/cloudPWN.git
 ### 2.5 - Configuration Files
 There are several configuration files within cloudPWN currently.  First configuration file in config/cloudPWN.conf is the core configuration file to cloudPWN and holds all data needed by the tool.  The most important part of setting up cloudPWN is to assure the right amazon AWS API keys and SSH keys are added to the configuration file without these cloudPWN will not work.
 
-The second configuration file is a SET (Social-Engineering Toolkit) local configuration file this way you can choose to use apache, listening ports, and other options during your automated web attacks.  
+The second configuration file is a SET (Social-Engineering Toolkit) local configuration file this way you can choose to use apache, modify listening ports, and other options during your automated web attacks.  
 
 Note: If you select to use Java self signed certs within the attack the attack will not be successful due to more options need to be set within the SET setup.  This is in development and should be implemented shortly.
 

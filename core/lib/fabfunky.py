@@ -24,14 +24,6 @@ def conn_est(host, user):
 	with settings(host_string = host, user = user, key_filename = config["keypath"]), hide("running"):
 			print green(run("echo 'Connection Established to %s'" % host))
 
-def ifconfig(host, user):
-	with settings(host_string = host, user = user, key_filename = config["keypath"]), hide("running"):
-		return run("ifconfig")
-
-def netstat(host, user):
-	with settings(host_string = host, user = user, key_filename = config["keypath"]), hide("running"):
-		return sudo("netstat -antp")
-
 def move(host, user, source, dest):
 	with settings(host_string = host, user = user, key_filename = config["keypath"]), hide("running"):
 		sudo("mv %s %s" % (source, dest))
