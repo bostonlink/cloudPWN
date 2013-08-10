@@ -23,13 +23,13 @@ def get_images(conn, imagelst):
 
 def new_instance_launch(selection_id, connection, key_name, instance_type, sec_group):
 	print green("creating instance from...... " + selection_id)
-	new_id = connection.run_instances(selection_id,
+	ress = connection.run_instances(selection_id,
 		key_name = key_name,
 		instance_type = instance_type,
 		security_groups=[sec_group])
 	
 	while True:
-		res = connection.get_all_instances(instance_ids=[new_id])
+		res = connection.get_all_instances(instance_ids=[ress.instances[0].id])
 		if res[0].instances[0].state == 'pending':
 			print yellow("%s's status is still %s. wait for the boot!" % (res[0].instances[0].id, res[0].instances[0].state))
 			sleep(2)
@@ -38,7 +38,7 @@ def new_instance_launch(selection_id, connection, key_name, instance_type, sec_g
 			print red("Ready to rock and roll, pwn them all!")
 			break
 
-	return new_id
+	return ress.instances[0].id
 
 def terminate_instance(instance_id, connection):
 	print "Terminating %s instance....." % instance_id
