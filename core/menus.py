@@ -20,7 +20,7 @@ def main_menu():
 	print "Supported cloud services"
 	print "1. Amazon AWS EC2"
 	print "2. Linode (TODO)"
-	print "3. Self Hosted External box (TODO)\n"
+	print "3. Self Hosted External box\n"
 	print "Please select a cloud service to launch an attack from."
 	userin = raw_input("Select a service (1/2/3): ")
 	if int(userin.strip()) > 3:
