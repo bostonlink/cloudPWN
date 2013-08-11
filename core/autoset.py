@@ -11,8 +11,7 @@ __maintainer__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'
 __email__ = 'david.bressler@guidepointsecurity.com'
 __status__ = 'Development'
 
-# If Java Signed cert is disabled in set_config
-
+# If Java Signed cert is disabled in set_config if not more options are needed.
 
 # Creates Java Applet Pyinject SET automation file
 def java_app_pyinject(ipaddress, redirect_web):
