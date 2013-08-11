@@ -20,7 +20,7 @@ __maintainer__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'
 __email__ = 'david.bressler@guidepointsecurity.com'
 __status__ = 'Development'
 
-def cleanupz(idic, user):
+def cleanupz(idic, user, sshkey):
 	
 	# Parse the config file and unpack user options from autoset menu
 	config = core.config.get_config()
@@ -29,7 +29,7 @@ def cleanupz(idic, user):
 				
 		print "Self Hosted Attack box detected... Pulling logs"
 		print "Please clean system independently..."
-		fabfunky.get_logz(idic["ip"], user)
+		fabfunky.get_logz(idic["ip"], user, sshkey)
 		fabfunky.disconnect_all()
 		pass
 			
@@ -41,7 +41,7 @@ def cleanupz(idic, user):
 
 			conn = ec2funky.ec2connx(config["accesskey"], config["secretkey"])
 			print red("Cleaning up %s - %s instance" % (idic["tags"], idic["iid"]))
-			fabfunky.get_logz(idic["ip"], user)
+			fabfunky.get_logz(idic["ip"], user, sshkey)
 			fabfunky.disconnect_all()
 			ec2funky.terminate_instance(idic["iid"], conn)
 

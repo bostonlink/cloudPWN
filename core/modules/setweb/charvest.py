@@ -20,7 +20,7 @@ __maintainer__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'
 __email__ = 'david.bressler@guidepointsecurity.com'
 __status__ = 'Development'
 
-def charvest_launch(idic, user):
+def charvest_launch(idic, user, sshkey):
 	
 	# Parse the config file and unpack user options from autoset menu
 	config = core.config.get_config()
@@ -34,7 +34,7 @@ def charvest_launch(idic, user):
 		try:
 			sleep(2)
 			print yellow("Attempting to establish a connection to %s" % idic["ip"])
-			fabfunky.conn_est(idic["ip"], user)
+			fabfunky.conn_est(idic["ip"], user, sshkey)
 			break
 		except Exception:
 			print red("Instance is still initializing...")
@@ -50,10 +50,10 @@ def charvest_launch(idic, user):
 			rfile = '/home/%s/set_config' % user
 
 		#uploads local SET config file
-		fabfunky.file_upload(idic["ip"], user, config["set_config"], rfile)
-		fabfunky.move(idic["ip"], user, rfile, "/usr/share/set/config/")
+		fabfunky.file_upload(idic["ip"], user, config["set_config"], rfile, sshkey)
+		fabfunky.move(idic["ip"], user, rfile, "/usr/share/set/config/", sshkey)
 		print green("\nStarting Apache....")
-		fabfunky.apache_start(idic["ip"], user)
+		fabfunky.apache_start(idic["ip"], user, sshkey)
 		print green("Apache Started...")
 
 	else:
@@ -64,13 +64,13 @@ def charvest_launch(idic, user):
 	if interactive == False:
 
 		print green("\nLaunching SET...")
-		fabfunky.set_auto(idic["ip"], user, autofile)
+		fabfunky.set_auto(idic["ip"], user, autofile, sshkey)
 		print green("\nSET Launched Credential Harvester..... browse to http://%s to test") % idic["ip"]
 
 	elif interactive == True:
 			
 		print green("\nLaunching SET...")
-		screen = fabfunky.set_auto(idic["ip"], user, autofile)
+		screen = fabfunky.set_auto(idic["ip"], user, autofile, sshkey)
 		print green("\nSET Launched Credential Harvester..... browse to http://%s to test") % idic["ip"]
 
 		screen = screen.strip().split()
@@ -82,9 +82,9 @@ def charvest_launch(idic, user):
 			print green("SET Launched Java Applet (PyInjector)..... browse to http://%s to test") % idic["ip"]
 			print yellow("\nRemember if you want to disconnect from the screen session hit CTRL+A+D to detatch and exit...\n")
 			sleep(2)
-			fabfunky.interactive_shell(idic["ip"], user, cmd)
+			fabfunky.interactive_shell(idic["ip"], user, cmd, sshkey)
 		else:
 			cmd = None
 			print red("\nDropping into a SSH shell....\n")
 			print red("No screen session returned.")
-			fabfunky.interactive_shell(idic["ip"], user, cmd)
+			fabfunky.interactive_shell(idic["ip"], user, cmd, sshkey)

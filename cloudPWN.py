@@ -53,18 +53,18 @@ try:
 	
 		if java_app_pyi == True:
 			
-			java_pyi(iinfo_dic, config['instance_user'])
+			java_pyi(iinfo_dic, config['instance_user'], config['keypath'])
 		
 		elif java_app == True:
 
-			java_applet(iinfo_dic, config['instance_user'])
+			java_applet(iinfo_dic, config['instance_user'], config['keypath'])
 
 		elif charvest == True:
 
-			charvest_launch(iinfo_dic, config['instance_user'])
+			charvest_launch(iinfo_dic, config['instance_user'], config['keypath'])
 
 		# remote log pull and terminiation of instance
-		cleanupz(iinfo_dic, config['instance_user'])
+		cleanupz(iinfo_dic, config['instance_user'], config['keypath'])
 	
 		# Local temp file cleanup 
 		fabfunky.clean_local()
@@ -76,7 +76,26 @@ try:
 	elif self_hosted == True:
 		ip = raw_input("Please enter the IP address of the Self hosted attack box: ")
 		self_dic = core.lib.selfy.self_info(ip)
-		setweb.set_web_attacks(self_dic)
+		
+		# Launches SET Web Attacks
+		java_app_pyi, java_app, charvest = menus.autoset_menu()
+	
+		if java_app_pyi == True:
+			
+			java_pyi(self_dic, config['self_user'], config['self_key_path'])
+		
+		elif java_app == True:
+
+			java_applet(self_dic, config['self_user'], config['self_key_path'])
+
+		elif charvest == True:
+
+			charvest_launch(self_dic, config['self_user'], config['self_key_path'])
+
+		# remote log pull and terminiation of instance
+		cleanupz(self_dic, config['self_user'], config['self_key_path'])
+	
+		# Local temp file cleanup 
 		fabfunky.clean_local()
 
 # Keyboard inturrupt exception

@@ -20,43 +20,43 @@ __status__ = 'Development'
 # Parsing the config file
 config = get_config()
 
-def conn_est(host, user):
-	with settings(host_string = host, user = user, key_filename = config["keypath"]), hide("running"):
+def conn_est(host, user, sshkey):
+	with settings(host_string = host, user = user, key_filename = sshkey), hide("running"):
 			print green(run("echo 'Connection Established to %s'" % host))
 
-def move(host, user, source, dest):
-	with settings(host_string = host, user = user, key_filename = config["keypath"]), hide("running"):
+def move(host, user, source, dest, sshkey):
+	with settings(host_string = host, user = user, key_filename = sshkey), hide("running"):
 		sudo("mv %s %s" % (source, dest))
 
-def apache_start(host, user):
-	with settings(host_string = host, user = user, key_filename = config["keypath"]), hide("running"):
+def apache_start(host, user, sshkey):
+	with settings(host_string = host, user = user, key_filename = sshkey), hide("running"):
 		return sudo("service apache2 start")
 
-def apache_stop(host, user):
-	with settings(host_string = host, user = user, key_filename = config["keypath"]), hide("running"):
+def apache_stop(host, user, sshkey):
+	with settings(host_string = host, user = user, key_filename = sshkey), hide("running"):
 		return sudo("service apache2 stop")
 
-def apache_restart(host, user):
-	with settings(host_string = host, user = user, key_filename = config["keypath"]), hide("running"):
+def apache_restart(host, user, sshkey):
+	with settings(host_string = host, user = user, key_filename = sshkey), hide("running"):
 		return sudo("service apache2 restart")
 
-def file_upload(host, user, lfile, rfile):
-	with settings(host_string = host, user = user, key_filename = config["keypath"], warn_only = True):
+def file_upload(host, user, lfile, rfile, sshkey):
+	with settings(host_string = host, user = user, key_filename = sshkey, warn_only = True):
 		return put(lfile, rfile)
 
-def set_auto(host, user, autofile):
-	with settings(host_string = host, user = user, key_filename=config["keypath"], warn_only = True):
+def set_auto(host, user, autofile, sshkey):
+	with settings(host_string = host, user = user, key_filename = sshkey, warn_only = True):
 		uploaddir = "/tmp/autoset.txt"
-		file_upload(host, user, autofile, uploaddir)
-		file_upload(host, user, "config/autoset/autoset.sh", "/tmp/")
+		file_upload(host, user, autofile, uploaddir, sshkey)
+		file_upload(host, user, "config/autoset/autoset.sh", "/tmp/", sshkey)
 		screen = run("bash /tmp/autoset.sh")
 		sleep(1)
 		run("rm -f /tmp/autoset.sh")
 		run("rm -f /tmp/autoset.txt")
 		return screen
 
-def interactive_shell(host, user, cmd):
-	with settings(host_string = host, user = user, key_filename = config["keypath"], warn_only = True):
+def interactive_shell(host, user, cmd, sshkey):
+	with settings(host_string = host, user = user, key_filename = sshkey, warn_only = True):
 		try:
 			open_shell(command=cmd)
 
@@ -75,8 +75,8 @@ def disconnect_all():
     	del connections[key]
 
 # TODO grab metasploit and meterpreter logs within this function
-def get_logz(host, user):
-	with settings(host_string = host, user = user, key_filename = config["keypath"], warn_only =  True):
+def get_logz(host, user, sshkey):
+	with settings(host_string = host, user = user, key_filename = sshkey, warn_only =  True):
 		print green("Pulling remote logs from instance.....")
 		get("/usr/share/set/screenlog.0", "data/remote_logs/")
 		get("~/.set/reports/*", "data/remote_logs")
