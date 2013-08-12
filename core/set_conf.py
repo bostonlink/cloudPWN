@@ -15,7 +15,19 @@ __status__ = 'Development'
 def apache_conf(conf):
 	f = open(conf, 'r')
 	conf = f.readlines()
+	f.close()
+	
 	for l in conf:
 		if 'APACHE_SERVER' in l:
 			switch = l.strip().split('=')
 			return switch[1]
+
+def ps_ports(conf):
+	f = open(conf, 'r')
+	conf = f.readlines()
+	f.close()
+
+	for l in conf:
+		if 'POWERSHELL_MULTI_PORTS' in l:
+			ports = l.strip().split('=')
+			return ports[1].split(',')
