@@ -194,8 +194,12 @@ Note: Big Thanks to Carlos Perez for this tutorial http://www.darkoperator.com/i
 
  * Now your custom SET and Metasploit AMI image is setup and ready to rock and roll ;) 
 
-## 3.0 - The Future
-### 3.1 - Future Development List
+## 3.0 - Usage
+### 3.1 - Main Usage
+TODO
+
+## 4.0 - The Future
+### 4.1 - Future Development List
 
  * Add support for additional cloud/vps providers
  * Add self hosted support
@@ -203,3 +207,4 @@ Note: Big Thanks to Carlos Perez for this tutorial http://www.darkoperator.com/i
  * Add Phishing email support and email lists for phishing and web attacks
  * Add Recon-ng support and automation
  * Add Recon-ng import to import and create email lists
+ * CLI main script to launch an instance from CLI and no user input needed
