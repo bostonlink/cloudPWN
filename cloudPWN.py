@@ -3,15 +3,15 @@
 # cloudPWN source
 
 import sys
-import core.config
-import core.lib.ec2funky as ec2funky
-import core.lib.fabfunky as fabfunky
-import core.menus as menus
-import core.lib.selfy
-from core.modules.setweb.charvest import charvest_launch
-from core.modules.setweb.java_applet_default import java_applet
-from core.modules.setweb.java_applet_pyinj import java_pyi
-from core.modules.cleanup import cleanupz
+import src.core.config
+import src.lib.ec2funky as ec2funky
+import src.lib.fabfunky as fabfunky
+import src.core.menus as menus
+import src.lib.selfy
+from src.modules.setweb.charvest import charvest_launch
+from src.modules.setweb.java_applet_default import java_applet
+from src.modules.setweb.java_applet_pyinj import java_pyi
+from src.modules.cleanup import cleanupz
 from fabric.colors import red, yellow
 
 __author__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'

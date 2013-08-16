@@ -2,7 +2,7 @@
 
 # Fabric python magic with the fabfunky functions for cloudPwn
 
-from core.config import get_config
+from src.core.config import get_config
 from fabric.api import *
 from fabric.colors import green, yellow, red
 from fabric.state import connections

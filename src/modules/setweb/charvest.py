@@ -1,14 +1,14 @@
 #!/usr/bin/env python
-# Default Java Applet Injection setup and automation 
+# Credential Harvester Automation and setup
 
 import sys
-import core.config
-import core.lib.fabfunky as fabfunky
-import core.lib.ec2funky as ec2funky
-import core.autoset as autoset
-import core.menus as menus
+import src.core.config
+import src.lib.fabfunky as fabfunky
+import src.lib.ec2funky as ec2funky
+import src.modules.setweb.autoset as autoset
+import src.core.menus as menus
 from fabric.colors import green, yellow, red
-from core.set_conf import apache_conf
+from src.modules.setweb.set_conf import apache_conf
 from time import sleep
 
 __author__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'
@@ -20,14 +20,14 @@ __maintainer__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'
 __email__ = 'david.bressler@guidepointsecurity.com'
 __status__ = 'Development'
 
-def java_applet(idic, user, sshkey):
-
+def charvest_launch(idic, user, sshkey):
+	
 	# Parse the config file and unpack user options from autoset menu
 	config = core.config.get_config()
 
 	web_clone = menus.autoset_file_menu()
 	print green("\nCreating custom SET automation file...")
-	autofile = autoset.java_applet(idic["ip"], web_clone)
+	autofile = autoset.cred_harvest(idic["ip"], web_clone)
 	print green("Custom SET automation file created.\n")
 
 	while True:
@@ -52,7 +52,6 @@ def java_applet(idic, user, sshkey):
 		#uploads local SET config file
 		fabfunky.file_upload(idic["ip"], user, config["set_config"], rfile, sshkey)
 		fabfunky.move(idic["ip"], user, rfile, "/usr/share/set/config/", sshkey)
-			
 		print green("\nStarting Apache....")
 		fabfunky.apache_start(idic["ip"], user, sshkey)
 		print green("Apache Started...")
@@ -66,13 +65,13 @@ def java_applet(idic, user, sshkey):
 
 		print green("\nLaunching SET...")
 		fabfunky.set_auto(idic["ip"], user, autofile, sshkey)
-		print green("\nSET Launched Java Applet (Reverse Meterpreter x86)..... browse to http://%s to test") % idic["ip"]
+		print green("\nSET Launched Credential Harvester..... browse to http://%s to test") % idic["ip"]
 
 	elif interactive == True:
 			
 		print green("\nLaunching SET...")
 		screen = fabfunky.set_auto(idic["ip"], user, autofile, sshkey)
-		print green("\nSET Launched Java Applet (Reverse Meterpreter x86)..... browse to http://%s to test") % idic["ip"]
+		print green("\nSET Launched Credential Harvester..... browse to http://%s to test") % idic["ip"]
 
 		screen = screen.strip().split()
 		sleep(2)

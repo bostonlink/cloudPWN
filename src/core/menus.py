@@ -2,8 +2,8 @@
 
 # cloudPWN menus for interactive user options
 import sys
-import core.lib.ec2funky as ec2funky
-import core.config
+import src.lib.ec2funky as ec2funky
+import src.core.config
 from fabric.colors import green, yellow, red
 
 __author__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'

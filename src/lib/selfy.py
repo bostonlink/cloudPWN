@@ -1,5 +1,5 @@
 
-import core.config
+import src.core.config
 
 def self_info(ip):
 	config = core.config.get_config()
