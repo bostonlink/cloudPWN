@@ -43,7 +43,7 @@ def main_menu():
 
 # Instance Menu
 def image_menu():
-	config = core.config.get_config()
+	config = src.core.config.get_config()
 	conn = ec2funky.ec2connx(config['accesskey'], config['secretkey'])
 	existing_instances = conn.get_all_instances()
 	ami_images = ec2funky.get_images(conn, config["image_list"])
@@ -65,7 +65,7 @@ def image_menu():
 		return ret_dic[data]
 
 def instance_list():
-	config = core.config.get_config()
+	config = src.core.config.get_config()
 	conn = ec2funky.ec2connx(config['accesskey'], config['secretkey'])
 	existing_instances = conn.get_all_instances()
 	ami_images = ec2funky.get_images(conn, config["image_list"])
