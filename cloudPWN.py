@@ -24,7 +24,7 @@ __email__ = 'david.bressler@guidepointsecurity.com'
 __status__ = 'Development'
 
 # Parsing the config file
-config = core.config.get_config()
+config = src.core.config.get_config()
 accesskey = config["accesskey"]
 secretkey = config["secretkey"]
 securitykey = config["securitykey"]
