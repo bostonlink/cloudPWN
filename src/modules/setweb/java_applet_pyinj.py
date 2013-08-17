@@ -2,13 +2,13 @@
 # Java Applet PyInjection setup and automation
 
 import sys
-import core.config
-import core.lib.fabfunky as fabfunky
-import core.lib.ec2funky as ec2funky
-import core.autoset as autoset
-import core.menus as menus
+import src.core.config
+import src.lib.fabfunky as fabfunky
+import src.lib.ec2funky as ec2funky
+import src.modules.setweb.autoset as autoset
+import src.core.menus as menus
 from fabric.colors import green, yellow, red
-from core.set_conf import apache_conf
+from src.modules.setweb.set_conf import apache_conf
 from time import sleep
 
 __author__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'
