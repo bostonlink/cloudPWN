@@ -23,7 +23,7 @@ __status__ = 'Development'
 def charvest_launch(idic, user, sshkey):
 	
 	# Parse the config file and unpack user options from autoset menu
-	config = core.config.get_config()
+	config = src.core.config.get_config()
 
 	web_clone = menus.autoset_file_menu()
 	print green("\nCreating custom SET automation file...")
