@@ -17,13 +17,16 @@ __status__ = 'Development'
 
 # Main Menu
 def main_menu():
-	print "Supported cloud services"
-	print "1. Amazon AWS EC2"
-	print "2. Linode (TODO)"
-	print "3. Self Hosted External box\n"
-	print "Please select a cloud service to launch an attack from."
+	count = 0
+	print "Supported cloud services:"
+	count += 1
+	print "%s. Amazon AWS EC2" % str(count)
+	count += 1
+	print "%s. Linode (TODO)" % str(count)
+	count += 1
+	print "%s. Self Hosted External box\n" % str(count)
 	userin = raw_input("Select a service (1/2/3): ")
-	if int(userin.strip()) > 3:
+	if int(userin.strip()) > count:
 		print red("Your selection is wrong, try again.")
 		sys.exit(0)
 	elif int(userin.strip()) == 1:
@@ -40,6 +43,27 @@ def main_menu():
 		self_hosted = True
 
 	return aws, linode, self_hosted
+
+# Attack Menu
+def attack_menu():
+	count = 0
+	print "\nPlease choose what you would like to do:"
+	count += 1
+	print "%s. SET Web Attacks" % str(count)
+	count += 1
+	print "%s. Nmap Scanning" % str(count)
+	uin = raw_input("Select and attack: ")
+	if int(uin.strip()) > count:
+		print red("Your selection is wrong, try again.")
+		sys.exit(0)
+	elif int(uin.strip()) == 1:
+		setweb = True
+		nmapscans = False
+	elif int(uin.strip()) == 2:
+		setweb = True
+		nmapscans = False
+
+	return setweb, nmapscans
 
 # Instance Menu
 def image_menu():
@@ -79,32 +103,18 @@ def instance_list():
 		ret_dic[str(count)] = [inst.instances[0].id, inst.instances[0].image_id]
 		count += 1
 
-# Launch or start menu
-def launch_start_menu():
-	print "\nPlese select if you would like to launch a new instance from the instance selected or start the current instance selected"
-	print "1. Launch a new instance"
-	print "2. Start selected instance"
-	userin = raw_input("Please select 1 or 2: ")
-	if int(userin.strip()) > 2:
-		print "Your selection is wrong"
-		main_menu()
-	elif int(userin.strip()) == 1:
-		launch_new = True
-		start = False
-	elif int(userin.strip()) == 2:
-		launch_new = False
-		start = True
-
-	return launch_new, start
-
 # SET Web Attack Menu
 def autoset_menu():
-	print "\nSelect the SET attack you would like to launch"
-	print "1. Java Applet (PyInjector)"
-	print "2. Java Applet (Reverse Meterpreter x86)"
-	print "3. Credential Harvester"
+	count = 0
+	print "\nSelect the SET attack you would like to launch:"
+	count += 1
+	print "%s. Java Applet (PyInjector)" % str(count)
+	count += 1
+	print "%s. Java Applet (Reverse Meterpreter x86)" % str(count)
+	count += 1
+	print "%s. Credential Harvester" % str(count)
 	userin = raw_input("Select and option: ")
-	if int(userin.strip()) > 3:
+	if int(userin.strip()) > count:
 		print "Try Harder!"
 		autoset_menu()
 	elif int(userin.strip()) == 1:
