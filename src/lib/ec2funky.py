@@ -3,7 +3,8 @@
 # EC2 and boto python magic with the ec2funky functions for cloudSET
 
 import boto.ec2
-from time import sleep
+from time import sleep, strftime
+from datetime import datetime
 from fabric.colors import green, yellow, red
 
 __author__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'
@@ -34,6 +35,7 @@ def new_instance_launch(selection_id, connection, key_name, instance_type, sec_g
 			print yellow("%s's status is still %s. wait for the boot!" % (res[0].instances[0].id, res[0].instances[0].state))
 			sleep(2)
 		elif res[0].instances[0].state == 'running':
+			res[0].instances[0].add_tag("Name", "SET Attack - %s" % strftime("%m-%d-%Y %H:%M:%S"))
 			print green("Instance started.... and its current state is %s" % res[0].instances[0].state) 
 			print red("Ready to rock and roll, pwn them all!")
 			break
