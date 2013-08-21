@@ -23,7 +23,7 @@ __status__ = 'Development'
 def cleanupz(idic, user, sshkey):
 	
 	# Parse the config file and unpack user options from autoset menu
-	config = core.config.get_config()
+	config = src.core.config.get_config()
 
 	if idic["ip"] == idic["iid"]:
 				

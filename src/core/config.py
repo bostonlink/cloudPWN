@@ -13,7 +13,7 @@ __status__ = 'Development'
 
 # Parses the cloudPWN config file and returns a dictionary of config options
 def get_config():
-	config_file = "config/cloudSET.conf"
+	config_file = "config/cloudPWN.conf"
 	config = {}
 	execfile(config_file, config)
 	return config
