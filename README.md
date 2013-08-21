@@ -4,7 +4,16 @@ Author: J. David Bressler (@bostonlink), GuidePoint Security LLC.<br/>
 cloudPWN - Automating Attacks within the cloud
 
 ## 1.0 - About
-TODO
+cloudPWN automates and distributes attacks and scans within the cloud.  It is fully open-source and written in python.  
+
+### 1.1 - Features
+ * Automation of SET web attacks
+ 	* Multiple Java applet attacks
+ 	* Credential Havester
+ * Distributed nmap scanning across multiple instances
+ * Interactive SSH sessions (optional)
+ * Downloads all attack logs for documentation
+ * EC2 instance termination after scanning/attacks are complete
 
 ## 2.0 - Requirements and Installation
 
@@ -202,7 +211,6 @@ TODO
 ### 4.1 - Future Development List
 
  * Add support for additional cloud/vps providers (linode)
- * Add Nmap module to launch multiple Nmap scans in multiple instances
  * Add Phishing email support and email lists for phishing and web attacks
  * Add Recon-ng support and automation
  * Add Recon-ng import to import and create email lists
