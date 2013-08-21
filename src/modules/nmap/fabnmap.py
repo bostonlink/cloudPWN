@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Fabric python magic with the fabfunky functions for cloudPwn
+# Fabric python magic for distributed nmap scanning
 
 from fabric.api import *
 from fabric.colors import green, yellow, red
