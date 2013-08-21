@@ -22,9 +22,9 @@ def ec2connx(accesskey, secretkey):
 def get_images(conn, imagelst):
 	return conn.get_all_images(image_ids=imagelst)
 
-def new_instance_launch(selection_id, connection, key_name, instance_type, sec_group):
+def new_instance_launch(image_id, connection, key_name, instance_type, sec_group):
 	print green("creating instance from...... " + selection_id)
-	ress = connection.run_instances(selection_id,
+	ress = connection.run_instances(image_id,
 		key_name = key_name,
 		instance_type = instance_type,
 		security_groups=[sec_group])
@@ -41,6 +41,36 @@ def new_instance_launch(selection_id, connection, key_name, instance_type, sec_g
 			break
 
 	return ress.instances[0].id
+
+def multi_instance_launch(image_id, connection, min_count, max_count, key_name, instance_type, sec_group):
+	print green("creating %s instances from...... %s" % (str(max_count), image_id))
+	ress = connection.run_instances(image_id,
+		min_count = min_count,
+		max_count = max_count,
+		key_name = key_name,
+		instance_type = instance_type,
+		security_groups=[sec_group])
+	
+	count = 1
+	iid_list = []
+	for instance in ress.instances:
+		instance.add_tag("Name", "Instance %s - %s" % (count, strftime("%m-%d-%Y %H:%M:%S")))
+		iid_list.append(instance)
+		count += 1
+
+	for instance in ress.instances:
+		while True:
+			if instance.state == 'pending':
+				instance.update()
+				print yellow("%s's status is still %s. wait for the boot!" % (instance.id, instance.state))
+				sleep(2)
+			elif instance.state == 'running':
+				print green("Instance %s started.... and its current state is %s" % (instance.id, instance.state))
+				break
+		
+	print red("Ready to rock and roll, pwn them all!")
+	return iid_list
+
 
 def terminate_instance(instance_id, connection):
 	print "Terminating %s instance....." % instance_id

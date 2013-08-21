@@ -55,6 +55,19 @@ def set_auto(host, user, autofile, sshkey):
 		run("rm -f /tmp/autoset.txt")
 		return screen
 
+def nmap_syn(host, user, iplist, opts, sshkey):
+	with settings(host_string = host, user = user, key_filename = sshkey, warn_only = True):
+		f = open('data/temp/nmap.sh', 'w')
+		f.write("mkdir nmap\n")
+		f.write("cd nmap\n")
+		f.write("sudo screen -A -m -d -L -S NMAP nmap -sS %s %s\n" % (iplist, opts))
+		f.write("sudo screen -ls\n")
+		f.close()
+		file_upload(host, user, 'data/temp/nmap.sh', '/tmp/nmap.sh', sshkey)
+		screen = run("bash /tmp/nmap.sh")
+		local("rm -f data/temp/nmap.sh")
+		return screen
+
 def interactive_shell(host, user, cmd, sshkey):
 	with settings(host_string = host, user = user, key_filename = sshkey, warn_only = True):
 		try:
