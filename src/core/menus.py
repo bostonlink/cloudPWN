@@ -139,8 +139,8 @@ def autoset_file_menu():
 
 # Interactive SSH shell menu
 def inter_shell_menu():
-	print "Interactive shell if you select no you will have to manually connect to the instance."
-	userin = raw_input("\nWould you like to spawn an interactive shell? [Y/N] ")
+	print "Interactive SSH session if you select 'NO' you will have to manually connect to the instance."
+	userin = raw_input("\nWould you like to spawn an interactive SSH session? [Y/N] ")
 	if userin == "Y" or userin == "y" or userin == "Yes" or userin == "yes":
 		return True
 	elif userin == "N" or userin == "n" or userin == "No" or userin == "no":

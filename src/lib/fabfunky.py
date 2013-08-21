@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
-# Fabric python magic with the fabfunky functions for cloudPwn
+# Fabric python magic with the fabfunky standard functions for cloudPwn
 
-from src.core.config import get_config
 from fabric.api import *
 from fabric.colors import green, yellow, red
 from fabric.state import connections
@@ -16,9 +15,6 @@ __version__ = '0.1'
 __maintainer__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'
 __email__ = 'david.bressler@guidepointsecurity.com'
 __status__ = 'Development'
-
-# Parsing the config file
-config = get_config()
 
 def conn_est(host, user, sshkey):
 	with settings(host_string = host, user = user, key_filename = sshkey), hide("running"):
@@ -53,19 +49,6 @@ def set_auto(host, user, autofile, sshkey):
 		sleep(1)
 		run("rm -f /tmp/autoset.sh")
 		run("rm -f /tmp/autoset.txt")
-		return screen
-
-def nmap_syn(host, user, iplist, opts, sshkey):
-	with settings(host_string = host, user = user, key_filename = sshkey, warn_only = True):
-		f = open('data/temp/nmap.sh', 'w')
-		f.write("mkdir nmap\n")
-		f.write("cd nmap\n")
-		f.write("sudo screen -A -m -d -L -S NMAP nmap -sS %s %s\n" % (iplist, opts))
-		f.write("sudo screen -ls\n")
-		f.close()
-		file_upload(host, user, 'data/temp/nmap.sh', '/tmp/nmap.sh', sshkey)
-		screen = run("bash /tmp/nmap.sh")
-		local("rm -f data/temp/nmap.sh")
 		return screen
 
 def interactive_shell(host, user, cmd, sshkey):

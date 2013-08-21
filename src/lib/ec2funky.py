@@ -23,7 +23,7 @@ def get_images(conn, imagelst):
 	return conn.get_all_images(image_ids=imagelst)
 
 def new_instance_launch(image_id, connection, key_name, instance_type, sec_group):
-	print green("creating instance from...... " + selection_id)
+	print green("creating instance from...... " + image_id)
 	ress = connection.run_instances(image_id,
 		key_name = key_name,
 		instance_type = instance_type,
