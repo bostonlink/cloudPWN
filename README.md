@@ -205,7 +205,11 @@ Note: Big Thanks to Carlos Perez for this tutorial http://www.darkoperator.com/i
 
 ## 3.0 - Usage
 ### 3.1 - Main Usage
-TODO
+To run cloudPWN after initial setup and configuration run cloudPWN.py from the terminal and follow the prompts.
+
+ ```bash
+ $ python cloudPWN.py
+ ```
 
 ## 4.0 - The Future
 ### 4.1 - Future Development List
