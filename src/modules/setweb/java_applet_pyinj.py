@@ -5,6 +5,7 @@ import sys
 import src.core.config
 import src.lib.fabfunky as fabfunky
 import src.lib.ec2funky as ec2funky
+from src.modules.setweb.fabsetweb import set_auto
 import src.modules.setweb.autoset as autoset
 import src.core.menus as menus
 from fabric.colors import green, yellow, red
@@ -68,13 +69,13 @@ def java_pyi(idic, user, sshkey):
 	if interactive == False:
 
 		print green("\nLaunching SET...")
-		fabfunky.set_auto(idic["ip"], user, autofile, sshkey)
+		set_auto(idic["ip"], user, autofile, sshkey)
 		print green("\nSET Launched Java Applet (PyInjector)..... browse to http://%s to test") % idic["ip"]
 
 	elif interactive == True:
 
 		print green("\nLaunching SET...")
-		screen = fabfunky.set_auto(idic["ip"], user, autofile, sshkey)
+		screen = set_auto(idic["ip"], user, autofile, sshkey)
 
 		screen = screen.strip().split()
 		sleep(2)

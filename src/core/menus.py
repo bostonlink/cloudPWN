@@ -44,27 +44,6 @@ def main_menu():
 
 	return aws, linode, self_hosted
 
-# Attack Menu
-def attack_menu():
-	count = 0
-	print "\nPlease choose what you would like to do:"
-	count += 1
-	print "%s. SET Web Attacks" % str(count)
-	count += 1
-	print "%s. Nmap Scanning" % str(count)
-	uin = raw_input("Select and attack: ")
-	if int(uin.strip()) > count:
-		print red("Your selection is wrong, try again.")
-		sys.exit(0)
-	elif int(uin.strip()) == 1:
-		setweb = True
-		nmapscans = False
-	elif int(uin.strip()) == 2:
-		setweb = True
-		nmapscans = False
-
-	return setweb, nmapscans
-
 # Instance Menu
 def image_menu():
 	config = src.core.config.get_config()
@@ -113,6 +92,8 @@ def autoset_menu():
 	print "%s. Java Applet (Reverse Meterpreter x86)" % str(count)
 	count += 1
 	print "%s. Credential Harvester" % str(count)
+	count += 1
+	print "%s. Launch SET with No Automation\n"
 	userin = raw_input("Select and option: ")
 	if int(userin.strip()) > count:
 		print "Try Harder!"
@@ -121,16 +102,24 @@ def autoset_menu():
 		java_app_pyi = True
 		java_app = False
 		charvest = False
+		setsolo = False
 	elif int(userin.strip()) == 2:
 		java_app_pyi = False
 		java_app = True
 		charvest = False
+		setsolo = False
 	elif int(userin.strip()) == 3:
 		java_app_pyi = False
 		java_app = False
 		charvest = True
+		setsolo = False
+	elif int(userin.strip()) == 4:
+		java_app_pyi = False
+		java_app = False
+		charvest = False
+		setsolo = True
 
-	return java_app_pyi, java_app, charvest
+	return java_app_pyi, java_app, charvest, setsolo
 
 # SET Automation file variable menu
 def autoset_file_menu():

@@ -6,6 +6,7 @@ import src.core.config
 import src.lib.fabfunky as fabfunky
 import src.lib.ec2funky as ec2funky
 import src.modules.setweb.autoset as autoset
+from src.modules.setweb.fabsetweb import set_auto
 import src.core.menus as menus
 from fabric.colors import green, yellow, red
 from src.modules.setweb.set_conf import apache_conf
@@ -64,13 +65,13 @@ def charvest_launch(idic, user, sshkey):
 	if interactive == False:
 
 		print green("\nLaunching SET...")
-		fabfunky.set_auto(idic["ip"], user, autofile, sshkey)
+		set_auto(idic["ip"], user, autofile, sshkey)
 		print green("\nSET Launched Credential Harvester..... browse to http://%s to test") % idic["ip"]
 
 	elif interactive == True:
 			
 		print green("\nLaunching SET...")
-		screen = fabfunky.set_auto(idic["ip"], user, autofile, sshkey)
+		screen = set_auto(idic["ip"], user, autofile, sshkey)
 		print green("\nSET Launched Credential Harvester..... browse to http://%s to test") % idic["ip"]
 
 		screen = screen.strip().split()
