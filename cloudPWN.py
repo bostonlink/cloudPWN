@@ -11,6 +11,7 @@ import src.lib.selfy
 from src.modules.setweb.charvest import charvest_launch
 from src.modules.setweb.java_applet_default import java_applet
 from src.modules.setweb.java_applet_pyinj import java_pyi
+from src.modules.setweb.setsolo import se_launch
 from src.modules.cleanup import cleanupz
 from fabric.colors import red, yellow
 
@@ -49,7 +50,7 @@ try:
 		iinfo_dic = ec2funky.instance_info(iid, conn)
 
 		# Launches SET Web Attacks
-		java_app_pyi, java_app, charvest = menus.autoset_menu()
+		java_app_pyi, java_app, charvest, setsolo = menus.autoset_menu()
 	
 		if java_app_pyi == True:
 			
@@ -62,6 +63,10 @@ try:
 		elif charvest == True:
 
 			charvest_launch(iinfo_dic, config['instance_user'], config['keypath'])
+
+		elif setsolo == True:
+
+			se_launch(iinfo_dic, config['instance_user'], config['keypath'])
 
 		# remote log pull and terminiation of instance
 		cleanupz(iinfo_dic, config['instance_user'], config['keypath'])
@@ -91,6 +96,10 @@ try:
 		elif charvest == True:
 
 			charvest_launch(self_dic, config['self_user'], config['self_key_path'])
+
+		elif setsolo == True:
+
+			se_launch(self_dic, config['self_user'], config['self_key_path'])
 
 		# remote log pull and terminiation of instance
 		cleanupz(self_dic, config['self_user'], config['self_key_path'])

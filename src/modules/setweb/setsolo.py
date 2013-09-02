@@ -21,7 +21,7 @@ __maintainer__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'
 __email__ = 'david.bressler@guidepointsecurity.com'
 __status__ = 'Development'
 
-def charvest_launch(idic, user, sshkey):
+def se_launch(idic, user, sshkey):
 	
 	# Parse the config file and unpack user options from autoset menu
 	config = src.core.config.get_config()
@@ -56,7 +56,7 @@ def charvest_launch(idic, user, sshkey):
 		pass
 
 	interactive = menus.inter_shell_menu()
-	#TODO
+	
 	if interactive == False:
 
 		print green("\nLaunching SET...")
