@@ -1,4 +1,7 @@
+#!/usr/bin/env python
 # Fucking around TODO
+
+import random
 
 __author__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'
 __copyright__ = 'Copyright 2013, GuidePoint Security LLC'
@@ -10,8 +13,9 @@ __email__ = 'david.bressler@guidepointsecurity.com'
 __status__ = 'Development'
 
 
-head0 = """
-       .__                   ._____________  __      _________ \r  
+def randhead():
+    head0 = """
+       .__                   ._____________  __      _________ \r 
   ____ |  |   ____  __ __  __| _/\______   \/  \    /  \      \  \r
 _/ ___\|  |  /  _ \|  |  \/ __ |  |     ___/\   \/\/   /   |   \ \r
 \  \___|  |_(  <_> )  |  / /_/ |  |    |     \        /    |    \ \r
@@ -20,7 +24,7 @@ _/ ___\|  |  /  _ \|  |  \/ __ |  |     ___/\   \/\/   /   |   \ \r
  """
 
 
-head1 = """
+    head1 = """
         __                ______ _       ___   __\r
   _____/ /___  __  ______/ / __ \ |     / / | / /\r
  / ___/ / __ \/ / / / __  / /_/ / | /| / /  |/ / \r
@@ -28,7 +32,7 @@ head1 = """
 \___/_/\____/\__,_/\__,_/_/     |__/|__/_/ |_/   \r
 """
 
-head2 = """
+    head2 = """
       _                 _______ _    _ _   _ \r
      | |               | | ___ \ |  | | \ | |\r
   ___| | ___  _   _  __| | |_/ / |  | |  \| |\r
@@ -37,7 +41,7 @@ head2 = """
  \___|_|\___/ \__,_|\__,_\_|    \/  \/\_| \_/\r
  """
 
-head3 = """
+    head3 = """
             __                            __  _______   __       __  __    __ \r
           /  |                          /  |/       \ /  |  _  /  |/  \  /  |\r
   _______ $$ |  ______   __    __   ____$$ |$$$$$$$  |$$ | / \ $$ |$$  \ $$ |\r
@@ -49,7 +53,7 @@ $$       |$$ |$$    $$/ $$    $$/ $$    $$ |$$ |      $$$/    $$$ |$$ | $$$ |\r
  $$$$$$$/ $$/  $$$$$$/   $$$$$$/   $$$$$$$/ $$/       $$/      $$/ $$/   $$/ \r
                                                                             """
 
-head4 = """
+    head4 = """
                                     ######  #     # #     # \r
   ####  #       ####  #    # #####  #     # #  #  # ##    # \r
  #    # #      #    # #    # #    # #     # #  #  # # #   # \r
@@ -58,4 +62,8 @@ head4 = """
  #    # #      #    # #    # #    # #       #  #  # #    ## \r
   ####  ######  ####   ####  #####  #        ## ##  #     #\r
   """
-print head4
+    headlist = [head0, head1, head2, head3, head4]
+    print headlist[random.randint(0, 4)]
+    print '\nWelcome to cloudPWN the cloud attack automation toolkit'
+    print 'Coded by: David Bressler (@bostonlink)'
+    print 'Version: 0.1 (Development)\n'
