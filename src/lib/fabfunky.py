@@ -75,10 +75,13 @@ def clean_local():
 
 
 def disconnect_all():
-    for key in connections:
-        print yellow("\nDisconnecting from %s" % key)
-        connections[key].close()
-        del connections[key]
+    try:
+        for key in connections:
+            print yellow("\nDisconnecting from %s" % key)
+            connections[key].close()
+            del connections[key]
+    except Exception:
+        pass
 
 # TODO grab metasploit and meterpreter logs within this function
 
