@@ -8,6 +8,7 @@ import src.lib.ec2funky as ec2funky
 import src.lib.fabfunky as fabfunky
 import src.core.menus as menus
 import src.lib.selfy
+import src.core.head
 from src.modules.setweb.charvest import charvest_launch
 from src.modules.setweb.java_applet_default import java_applet
 from src.modules.setweb.java_applet_pyinj import java_pyi
@@ -31,6 +32,9 @@ secretkey = config["secretkey"]
 securitykey = config["securitykey"]
 security_group = config["security_group"]
 instance_type = config["instance_type"]
+
+# Head ASCII Art
+src.core.head.randhead()
 
 # Select what service to launch and get the instance id
 try:
