@@ -2,6 +2,7 @@
 
 # Fabric python magic for distributed nmap scanning
 
+from time import sleep
 from fabric.api import *
 from src.lib.fabfunky import file_upload
 
