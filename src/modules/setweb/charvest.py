@@ -78,13 +78,13 @@ def charvest_launch(idic, user, sshkey):
         if '.SET' in screen[5]:
             print screen[5]
             cmd = 'sudo screen -r %s' % screen[5]
-            print red("\nDropping into a SSH shell....")
-            print green("SET Launched Java Applet (PyInjector)..... browse to http://%s to test") % idic["ip"]
+            print red("\nDropping into a SSH session....")
+            print green("SET Launched Credential Harvester..... browse to http://%s to test") % idic["ip"]
             print yellow("\nRemember if you want to disconnect from the screen session hit CTRL+A+D to detatch and exit...\n")
             sleep(2)
             fabfunky.interactive_shell(idic["ip"], user, cmd, sshkey)
         else:
             cmd = None
-            print red("\nDropping into a SSH shell....\n")
+            print red("\nDropping into a SSH session....\n")
             print red("No screen session returned.")
             fabfunky.interactive_shell(idic["ip"], user, cmd, sshkey)
