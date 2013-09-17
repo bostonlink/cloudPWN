@@ -3,6 +3,7 @@
 # Fabric python magic for distributed nmap scanning
 
 from fabric.api import *
+from src.lib.fabfunky import file_upload
 
 __author__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'
 __copyright__ = 'Copyright 2013, GuidePoint Security LLC'

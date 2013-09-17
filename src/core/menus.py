@@ -98,7 +98,7 @@ def autoset_menu():
     count += 1
     print "%s. Credential Harvester" % str(count)
     count += 1
-    print "%s. Launch SET with No Automation\n"
+    print "%s. Launch SET with No Automation\n" % str(count)
     userin = raw_input("Select and option: ")
     if int(userin.strip()) > count:
         print "Try Harder!"
