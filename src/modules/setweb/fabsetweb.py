@@ -39,7 +39,7 @@ def set_launch(host, user, sshkey):
     with settings(host_string = host, user = user, key_filename = sshkey, warn_only = True):
         f = open("data/temp/setweb.sh", "w")
         f.write("cd /usr/share/set/\n")
-        f.write('sudo screen -A -m -d -L -S SET "/usr/share/set/setoolkit"')
+        f.write('sudo screen -A -m -d -L -S SET /usr/share/set/setoolkit\n')
         f.write("sudo screen -ls")
         f.close()
         file_upload(host, user, "data/temp/setweb.sh", "/tmp/setweb.sh", sshkey)
