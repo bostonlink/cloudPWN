@@ -20,33 +20,34 @@ __maintainer__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'
 __email__ = 'david.bressler@guidepointsecurity.com'
 __status__ = 'Development'
 
+
 def cleanupz(idic, user, sshkey):
-	
-	# Parse the config file and unpack user options from autoset menu
-	config = src.core.config.get_config()
 
-	if idic["ip"] == idic["iid"]:
-				
-		print "Self Hosted Attack box detected... Pulling logs"
-		print "Please clean system independently..."
-		fabfunky.get_logz(idic["ip"], user, sshkey)
-		fabfunky.disconnect_all()
-		pass
-			
-	else:
-				
-		cleanup = menus.cleanup_menu()
+    # Parse the config file and unpack user options from autoset menu
+    config = src.core.config.get_config()
 
-		if cleanup == True:
+    if idic["ip"] == idic["iid"]:
 
-			conn = ec2funky.ec2connx(config["accesskey"], config["secretkey"])
-			print red("Cleaning up %s - %s instance" % (idic["tags"], idic["iid"]))
-			fabfunky.get_logz(idic["ip"], user, sshkey)
-			fabfunky.disconnect_all()
-			ec2funky.terminate_instance(idic["iid"], conn)
+        print "Self Hosted Attack box detected... Pulling logs"
+        print "Please clean system independently..."
+        fabfunky.get_logz(idic["ip"], user, sshkey)
+        fabfunky.disconnect_all()
+        pass
 
-		else:
+    else:
 
-			fabfunky.disconnect_all()
-			print red("SSH: ssh -i %s.pem %s@%s") % (idic["key"], user,idic["ip"])
-			print "Be sure to run 'python cloudPWNclean.py' after the attack to pull logs and terminate the instance."
+        cleanup = menus.cleanup_menu()
+
+        if cleanup is True:
+
+            conn = ec2funky.ec2connx(config["accesskey"], config["secretkey"])
+            print red("Cleaning up %s - %s instance" % (idic["tags"], idic["iid"]))
+            fabfunky.get_logz(idic["ip"], user, sshkey)
+            fabfunky.disconnect_all()
+            ec2funky.terminate_instance(idic["iid"], conn)
+
+        else:
+
+            fabfunky.disconnect_all()
+            print red("SSH: ssh -i %s.pem %s@%s") % (idic["key"], user,idic["ip"])
+            print "Be sure to run 'python cloudPWNclean.py' after the attack to pull logs and terminate the instance."

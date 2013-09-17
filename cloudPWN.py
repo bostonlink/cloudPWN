@@ -13,7 +13,7 @@ from src.modules.setweb.java_applet_default import java_applet
 from src.modules.setweb.java_applet_pyinj import java_pyi
 from src.modules.setweb.setsolo import se_launch
 from src.modules.cleanup import cleanupz
-from fabric.colors import red, yellow
+from fabric.colors import yellow
 
 __author__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'
 __copyright__ = 'Copyright 2013, GuidePoint Security LLC'
@@ -35,78 +35,86 @@ instance_type = config["instance_type"]
 # Select what service to launch and get the instance id
 try:
 
-	amazon, linode, self_hosted = menus.main_menu()
-	
-	if amazon == True and linode == False:
-		
-		conn = ec2funky.ec2connx(accesskey, secretkey)
-		iid, aid = menus.image_menu()
+    amazon, linode, self_hosted = menus.main_menu()
 
-		# launches new instance and sets the image id of the instance
-		if iid == None:
-			iid = ec2funky.new_instance_launch(aid, conn, securitykey, instance_type, security_group)
+    if amazon is True and linode is False:
 
-		# bulds instance information dictionary of the launched instance
-		iinfo_dic = ec2funky.instance_info(iid, conn)
+        conn = ec2funky.ec2connx(accesskey, secretkey)
+        iid, aid = menus.image_menu()
 
-		# Launches SET Web Attacks
-		java_app_pyi, java_app, charvest, setsolo = menus.autoset_menu()
-	
-		if java_app_pyi == True:
-			
-			java_pyi(iinfo_dic, config['instance_user'], config['keypath'])
-		
-		elif java_app == True:
+        # launches new instance and sets the image id of the instance
+        if iid is None:
+            iid = ec2funky.new_instance_launch(aid,
+                                               conn,
+                                               securitykey,
+                                               instance_type,
+                                               security_group)
 
-			java_applet(iinfo_dic, config['instance_user'], config['keypath'])
+        # bulds instance information dictionary of the launched instance
+        iinfo_dic = ec2funky.instance_info(iid, conn)
 
-		elif charvest == True:
+        # Launches SET Web Attacks
+        java_app_pyi, java_app, charvest, setsolo = menus.autoset_menu()
 
-			charvest_launch(iinfo_dic, config['instance_user'], config['keypath'])
+        if java_app_pyi is True:
 
-		elif setsolo == True:
+            java_pyi(iinfo_dic, config['instance_user'], config['keypath'])
 
-			se_launch(iinfo_dic, config['instance_user'], config['keypath'])
+        elif java_app is True:
 
-		# remote log pull and terminiation of instance
-		cleanupz(iinfo_dic, config['instance_user'], config['keypath'])
-	
-		# Local temp file cleanup 
-		fabfunky.clean_local()
+            java_applet(iinfo_dic, config['instance_user'], config['keypath'])
 
-	elif linode == True and amazon == False:
-		print "Support for linode is coming soon.  Please use AWS for now."
-		sys.exit(0)
+        elif charvest is True:
 
-	elif self_hosted == True:
-		ip = raw_input("Please enter the IP address of the Self hosted attack box: ")
-		self_dic = core.lib.selfy.self_info(ip)
-		
-		# Launches SET Web Attacks
-		java_app_pyi, java_app, charvest = menus.autoset_menu()
-	
-		if java_app_pyi == True:
-			
-			java_pyi(self_dic, config['self_user'], config['self_key_path'])
-		
-		elif java_app == True:
+            charvest_launch(iinfo_dic,
+                            config['instance_user'],
+                            config['keypath'])
 
-			java_applet(self_dic, config['self_user'], config['self_key_path'])
+        elif setsolo is True:
 
-		elif charvest == True:
+            se_launch(iinfo_dic, config['instance_user'], config['keypath'])
 
-			charvest_launch(self_dic, config['self_user'], config['self_key_path'])
+        # remote log pull and terminiation of instance
+        cleanupz(iinfo_dic, config['instance_user'], config['keypath'])
 
-		elif setsolo == True:
+        # Local temp file cleanup
+        fabfunky.clean_local()
 
-			se_launch(self_dic, config['self_user'], config['self_key_path'])
+    elif linode is True and amazon is False:
+        print "Support for linode is coming soon.  Please use AWS for now."
+        sys.exit(0)
 
-		# remote log pull and terminiation of instance
-		cleanupz(self_dic, config['self_user'], config['self_key_path'])
-	
-		# Local temp file cleanup 
-		fabfunky.clean_local()
+    elif self_hosted is True:
+        ip = raw_input("Please enter the IP address of the Self hosted attack box: ")
+        self_dic = src.lib.selfy.self_info(ip)
+
+        # Launches SET Web Attacks
+        java_app_pyi, java_app, charvest = menus.autoset_menu()
+
+        if java_app_pyi is True:
+
+            java_pyi(self_dic, config['self_user'], config['self_key_path'])
+
+        elif java_app is True:
+
+            java_applet(self_dic, config['self_user'], config['self_key_path'])
+
+        elif charvest is True:
+
+            charvest_launch(self_dic,
+                            config['self_user'],
+                            config['self_key_path'])
+
+        elif setsolo is True:
+
+            se_launch(self_dic, config['self_user'], config['self_key_path'])
+
+        # remote log pull and terminiation of instance
+        cleanupz(self_dic, config['self_user'], config['self_key_path'])
+
+        # Local temp file cleanup
+        fabfunky.clean_local()
 
 # Keyboard inturrupt exception
 except KeyboardInterrupt:
-	print yellow("\n\nExiting..... Come back soon!")
+    print yellow("\n\nExiting..... Come back soon!")

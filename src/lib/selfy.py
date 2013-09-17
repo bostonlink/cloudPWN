@@ -13,9 +13,10 @@ __maintainer__ = 'David Bressler (@bostonlink), GuidePoint Security LLC'
 __email__ = 'david.bressler@guidepointsecurity.com'
 __status__ = 'Development'
 
+
 def self_info(ip):
-	config = src.core.config.get_config()
-	return {'iid' : ip,
-			'key' : config['self_key_path'],
-			'ip' : ip,
-			'tags' : 'Self Hosted system at %s' % ip}
+    config = src.core.config.get_config()
+    return {'iid': ip,
+            'key': config['self_key_path'],
+            'ip': ip,
+            'tags': 'Self Hosted system at %s' % ip}
