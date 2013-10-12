@@ -213,6 +213,7 @@ To run cloudPWN after initial setup and configuration run cloudPWN.py from the t
 ## 4.0 - The Future
 ### 4.1 - Future Development List
 
+ * Make more modulare for easy development
  * Add support for additional cloud/vps providers (linode)
  * Distributed nmap scaning
  * Add Phishing email support and email lists for phishing and web attacks
