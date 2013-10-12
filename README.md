@@ -10,7 +10,6 @@ cloudPWN automates and distributes attacks and scans within the cloud.  It is fu
  * Automation of SET web attacks
  	* Multiple Java applet attacks
  	* Credential Havester
- * Distributed nmap scanning across multiple instances
  * Interactive SSH sessions (optional)
  * Downloads all attack logs for documentation
  * EC2 instance termination after scanning/attacks are complete
