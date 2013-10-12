@@ -219,3 +219,5 @@ To run cloudPWN after initial setup and configuration run cloudPWN.py from the t
  * Add Recon-ng support and automation
  * Add Recon-ng import to import and create email lists
  * CLI main script to launch an instance from CLI and no user input needed
+ * Linode support
+ * DigitalOcean support
