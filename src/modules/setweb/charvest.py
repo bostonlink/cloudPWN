@@ -55,9 +55,20 @@ def charvest_launch(idic, user, sshkey):
         print green("\nStarting Apache....")
         fabfunky.apache_start(idic["ip"], user, sshkey)
         print green("Apache Started...")
-
+    # checks the hash of the local set_conf file to the set_conf.orig file and uploads set_conf if different
     else:
-        pass
+        setconfup = src.core.config.check_setconf()
+
+        if setconfup is True:
+            if user == 'root':
+                rfile = '/%s/set_config' % user
+            else:
+                rfile = '/home/%s/set_config' % user
+
+            fabfunky.file_upload(idic["ip"], user, config["set_config"], rfile, sshkey)
+            fabfunky.move(idic["ip"], user, rfile, "/usr/share/set/config/", sshkey)
+        else:
+            pass
 
     interactive = menus.inter_shell_menu()
 
