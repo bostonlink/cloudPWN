@@ -217,8 +217,6 @@ To run cloudPWN after initial setup and configuration run cloudPWN.py from the t
  * Add support for additional cloud/vps providers (linode)
  * Distributed nmap scaning
  * Add Phishing email support and email lists for phishing and web attacks
- * Add Recon-ng support and automation
- * Add Recon-ng import to import and create email lists
  * CLI main script to launch an instance from CLI and no user input needed
  * Linode support
  * DigitalOcean support
