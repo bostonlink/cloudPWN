@@ -152,3 +152,12 @@ def cleanup_menu():
         return True
     else:
         return False
+
+
+def sep_meta_listener():
+    userin =  raw_input("\nWould you like to setup the webserver and metasploit listener on separate instances? [Y/N] ")
+    if userin == "Y" or userin == "y" or userin == "Yes" or userin == "yes":
+        print "Be sure to edit the local set_config file to turn metasploit listener off..."
+        return True
+    else:
+        return False

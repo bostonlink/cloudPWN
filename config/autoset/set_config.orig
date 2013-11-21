@@ -28,7 +28,7 @@
 ##################################################################################################
 #
 ### Define the path to MetaSploit, for example: /pentest/exploits/framework3 
-METASPLOIT_PATH=/opt/metasploit/apps/pro/msf3
+METASPLOIT_PATH=/opt/metasploit-framework/
 #
 ### This will tell what database to use when using the MetaSploit functionality. Default is PostgreSQL
 METASPLOIT_DATABASE=postgresql

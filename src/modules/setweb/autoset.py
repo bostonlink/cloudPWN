@@ -16,7 +16,7 @@ __status__ = 'Development'
 # Creates Java Applet Pyinject SET automation file
 
 
-def java_app_pyinject(ipaddress, redirect_web):
+def java_app_pyinject(ipaddress, redirect_web, metaip=None,):
     auto_file = "# Automagically generated Java Applet Pyinject SET automation file"
     auto_file += "\n1\n2\n1\n2\nno\n%s\n%s\n15\n443\n1\n\n" % (ipaddress, redirect_web)
     f = open('data/temp/java_app_pyinject.txt', 'w')
@@ -27,18 +27,26 @@ def java_app_pyinject(ipaddress, redirect_web):
 # Creates Java Applet SET automation file
 
 
-def java_applet(ipaddress, redirect_web):
-    auto_file = "# Automagically generated Java Applet SET automation file"
-    auto_file += "\n1\n2\n1\n2\nno\n%s\n%s\n2\n16\n443\n\n" % (ipaddress, redirect_web)
-    f = open('data/temp/java_applet.txt', 'w')
-    f.write(auto_file)
-    f.close()
-    return 'data/temp/java_applet.txt'
+def java_applet(ipaddress, redirect_web, metaip=None):
+    if metaip is None:
+        auto_file = "# Automagically generated Java Applet SET automation file"
+        auto_file += "\n1\n2\n1\n2\nno\n%s\n%s\n2\n16\n443\n\n" % (ipaddress, redirect_web)
+        f = open('data/temp/java_applet.txt', 'w')
+        f.write(auto_file)
+        f.close()
+        return 'data/temp/java_applet.txt'
+    elif metaip is not None:
+        auto_file = "# Automagically generated Java Applet SET automation file"
+        auto_file += "\n1\n2\n1\n2\nyes\n%s\nyes\n%s\n%s\n2\n16\n443\n\n" % (ipaddress, metaip, redirect_web)
+        f = open('data/temp/java_applet.txt', 'w')
+        f.write(auto_file)
+        f.close()
+        return 'data/temp/java_applet.txt'
 
 # Creates Credential Harvester automation file
 
 
-def cred_harvest(ipaddress, redirect_web):
+def cred_harvest(ipaddress, redirect_web, metaip=None):
     auto_file = "Automagically generated Credential Harvester SET automation file"
     auto_file += "\n1\n2\n3\n2\n%s\n%s\n\n" % (ipaddress, redirect_web)
     f = open('data/temp/charvest.txt', 'w')

