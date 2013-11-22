@@ -20,7 +20,7 @@ __email__ = 'david.bressler@guidepointsecurity.com'
 __status__ = 'Development'
 
 
-def java_pyi(idic, user, sshkey):
+def java_pyi(idic, user, sshkey, idic2=None):
 
     # Parse the config file and unpack user options from autoset menu
     config = src.core.config.get_config()

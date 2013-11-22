@@ -59,18 +59,18 @@ try:
             iinfo_dic = ec2funky.instance_info(iid, conn)
 
         elif iid is None and dist_attack is True:
-            iid_list = multi_instance_launch(aid,
-                                             conn,
-                                             2,
-                                             2,
-                                             securitykey,
-                                             instance_type,
-                                             security_group)
+            iid_list = ec2funky.multi_instance_launch(aid,
+                                                      conn,
+                                                      2,
+                                                      2,
+                                                      securitykey,
+                                                      instance_type,
+                                                      security_group)
 
             # bulds instance information dictionary of the launched instance
-            iinfo_dic1 = ec2funky.instance_info(iid_list[0], conn)
+            iinfo_dic1 = ec2funky.instance_info(iid_list[0].id, conn)
             # bulds instance information dictionary of the launched instance
-            iinfo_dic2 = ec2funky.instance_info(iid_list[1], conn)
+            iinfo_dic2 = ec2funky.instance_info(iid_list[1].id, conn)
 
         else:
             # bulds instance information dictionary of the launched instance
@@ -79,15 +79,23 @@ try:
         # Launches SET Web Attacks
         java_app_pyi, java_app, charvest, setsolo = menus.autoset_menu()
 
-        if java_app_pyi is True:
+        if java_app_pyi is True and dist_attack is False:
 
             java_pyi(iinfo_dic, config['instance_user'], config['keypath'])
 
-        elif java_app is True:
+        elif java_app_pyi is True and dist_attack is True:
+
+            java_pyi(iinfo_dic1, config['instance_user'], config['keypath'], iinfo_dic2)
+
+        elif java_app is True and dist_attack is False:
 
             java_applet(iinfo_dic, config['instance_user'], config['keypath'])
 
-        elif charvest is True:
+        elif java_app is True and dist_attack is True:
+
+            java_applet(iinfo_dic1, config['instance_user'], config['keypath'], iinfo_dic2)
+
+        elif charvest is True and dist_attack is False:
 
             charvest_launch(iinfo_dic,
                             config['instance_user'],
